@@ -25,7 +25,7 @@ and	{ fprintf(stderr,"%d.",12); return AND; }
 not	{ fprintf(stderr,"%d.",13); return NOT; }
 neg	{	fprintf(stderr,"%d.",14); return NEG; }
 play	{ fprintf(stderr,"%d.",15); return PLAY; }
-\"[ A-Za-z0-9]*\" { yylval.symbol = NewSymbol(yytext,STRING, 0); fprintf(stderr,"%d.",16); return STRING; }
+["]([^"]|\\(.|\n))*["] { yylval.symbol = NewSymbol(yytext,STRING, 0); fprintf(stderr,"%d.",16); return STRING; }
 [A-Z][A-Za-z0-9]* { yylval.symbol = NewSymbol(yytext,ID, 0); fprintf(stderr,"%d.",16); return ID; }
 [0-9][0-9]*		  { yylval.symbol = NewSymbol(yytext,NUM, 0); fprintf(stderr,"%d.",17); return NUM; }
 [0-9][0-9]*\.[0-9]+	  { yylval.symbol = NewSymbol(yytext,NUM, 1); fprintf(stderr,"%d.",17); return NUM; }
