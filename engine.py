@@ -3,7 +3,7 @@ from copy import copy, deepcopy
 from time import sleep, time
 from tkinter import filedialog
 
-import config
+import game
 import themes
 from allextetrominoes import *
 from board import Board
@@ -12,7 +12,7 @@ from shape import Shape
 
 class TetrisEngine:
 	def __init__(self):  # Programmable: pass a different parameter
-		self.difficulty = config.difficulty
+		self.difficulty = game.difficulty
 		if self.difficulty == "easy":
 			self.extetromino_distribution = range(1, 8)
 		elif self.difficulty == "medium":
@@ -23,11 +23,11 @@ class TetrisEngine:
 			print("Invalid difficulty level. Exiting...")
 			exit()
 
-		bg, fg, font = self.load_theme(config.theme)
+		bg, fg, font = self.load_theme(game.theme)
 		self.window = tk.Tk()  # fixed
-		self.window.title(config.title)  # Programmable, inconsequential
-		self.width = config.width  # Essential and programmable
-		self.height = config.height  # Essential and programmable
+		self.window.title(game.title)  # Programmable, inconsequential
+		self.width = game.width  # Essential and programmable
+		self.height = game.height  # Essential and programmable
 		self.text_area = tk.Text(  # Essential and partially programmable
 			self.window,  # fixed unless you populate more components
 			wrap=tk.CHAR,  # programmable, please find some way not to let it wrap
@@ -41,14 +41,14 @@ class TetrisEngine:
 		self.board = Board(width=self.width, height=self.height)  # fixed
 		self.pauseStatus = False  # fixed in the beginning, state variable
 		self.window.bind(
-			f"<{config.up_key}>", self.rotate_CW
+			f"<{game.up_key}>", self.rotate_CW
 		)  # semi-fixed: change by providing a new
 		# callback: this is true of all the callbacks
-		self.window.bind(f"<{config.left_key}>", self.move_left)  # callback
-		self.window.bind(f"<{config.right_key}>", self.move_right)  # callback
+		self.window.bind(f"<{game.left_key}>", self.move_left)  # callback
+		self.window.bind(f"<{game.right_key}>", self.move_right)  # callback
 		self.window.bind("<space>", self.drop_piece)  # callback
-		self.window.bind(f"<{config.down_key}>", self.move_down_force)  # callback
-		self.window.bind(f'<{config.pause_key}>', self.toggle_pause_status) # callback
+		self.window.bind(f"<{game.down_key}>", self.move_down_force)  # callback
+		self.window.bind(f'<{game.pause_key}>', self.toggle_pause_status) # callback
 
 		self.update_duration = 100  # More or less fixed
 		self.window.after(self.update_duration, lambda: self.update_step())  # callback
@@ -62,10 +62,10 @@ class TetrisEngine:
 			self.move_down_duration, lambda: self.move_down_step()
 		)  # callback
 		self.default_cursor = (
-			config.default_cursor
+			game.default_cursor
 		)  # Programmable. Where the new piece appears
 		self.cursor = self.default_cursor  # State variable.
-		self.max_level = config.max_level
+		self.max_level = game.max_level
 		self.current_level = 1
 		self.lines_cleared = 0
 		self.new_piece()  # This sequence is not much programmable.
@@ -168,7 +168,7 @@ class TetrisEngine:
 			]
 			if tobedeleted:
 				self.lines_cleared += len(tobedeleted)
-				self.total_score += config.levels_dict[f"level{self.current_level}"][0]*len(tobedeleted)
+				self.total_score += game.levels_dict[f"level{self.current_level}"][0]*len(tobedeleted)
 				self.score.set(
 					f"Total Score: {self.total_score} | Level: {self.current_level}"
 				)
@@ -197,10 +197,10 @@ class TetrisEngine:
 			self.window.after(self.move_down_duration, lambda: self.move_down_step())
 
 	def check_level_up(self):
-		if self.lines_cleared >= config.levels_dict[f"level{self.current_level}"][1]:
+		if self.lines_cleared >= game.levels_dict[f"level{self.current_level}"][1]:
 			if self.current_level < self.max_level:
 				self.current_level += 1
-				self.speed_up(config.levels_dict[f"level{self.current_level}"][2])
+				self.speed_up(game.levels_dict[f"level{self.current_level}"][2])
 				self.score.set(
 					f"total score: {self.total_score} | Level: {self.current_level}"
 				)
@@ -294,11 +294,11 @@ class TetrisEngine:
 
 	def move_piece(self, direction):
 		if direction == "LEFT":
-			offset = (0, -config.left_offset)
+			offset = (0, -game.left_offset)
 		elif direction == "RIGHT":
-			offset = (0, config.right_offset)
+			offset = (0, game.right_offset)
 		elif direction == "DOWN":
-			offset = (config.down_offset, 0)
+			offset = (game.down_offset, 0)
 
 		new_cursor = tuple(map(lambda a, b: a + b, self.cursor, offset))
 
@@ -326,7 +326,7 @@ class TetrisEngine:
 		"""Toggle the pause status of the game."""
 		self.pauseStatus = not self.pauseStatus
 		if self.pauseStatus:
-			self.text_area.insert(tk.END, f"\nGame Paused. Press '{config.pause_key}' to continue.")
+			self.text_area.insert(tk.END, f"\nGame Paused. Press '{game.pause_key}' to continue.")
 		else:
 			self.text_area.insert(tk.END, "\nGame Resumed.")
 			self.update_step()  # Resume game updates
