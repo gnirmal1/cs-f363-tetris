@@ -39,7 +39,7 @@
 # define YY_YY_A2VERSION2_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 1
+# define YYDEBUG 0
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -56,22 +56,23 @@ extern int yydebug;
     YYUNDEF = 257,                 /* "invalid token"  */
     ID = 258,                      /* ID  */
     NUM = 259,                     /* NUM  */
-    SECTION1 = 260,                /* SECTION1  */
-    SECTION2 = 261,                /* SECTION2  */
-    SECTION3 = 262,                /* SECTION3  */
-    NEWLINE = 263,                 /* NEWLINE  */
-    IF = 264,                      /* IF  */
-    THEN = 265,                    /* THEN  */
-    ELSE = 266,                    /* ELSE  */
-    END = 267,                     /* END  */
-    WHILE = 268,                   /* WHILE  */
-    CALL = 269,                    /* CALL  */
-    WITH = 270,                    /* WITH  */
-    OR = 271,                      /* OR  */
-    AND = 272,                     /* AND  */
-    NOT = 273,                     /* NOT  */
-    NEG = 274,                     /* NEG  */
-    PLAY = 275                     /* PLAY  */
+    STRING = 260,                  /* STRING  */
+    SECTION1 = 261,                /* SECTION1  */
+    SECTION2 = 262,                /* SECTION2  */
+    SECTION3 = 263,                /* SECTION3  */
+    NEWLINE = 264,                 /* NEWLINE  */
+    IF = 265,                      /* IF  */
+    THEN = 266,                    /* THEN  */
+    ELSE = 267,                    /* ELSE  */
+    END = 268,                     /* END  */
+    WHILE = 269,                   /* WHILE  */
+    CALL = 270,                    /* CALL  */
+    WITH = 271,                    /* WITH  */
+    OR = 272,                      /* OR  */
+    AND = 273,                     /* AND  */
+    NOT = 274,                     /* NOT  */
+    NEG = 275,                     /* NEG  */
+    PLAY = 276                     /* PLAY  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -80,12 +81,12 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 27 "a2version2.y"
+#line 25 "a2version2.y"
 
     char* id;
 	ExtetricksSType symbol;
 
-#line 89 "a2version2.tab.h"
+#line 90 "a2version2.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

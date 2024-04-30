@@ -29,6 +29,7 @@ int yywrap()
 
 %token <symbol> ID
 %token <symbol> NUM
+%token <symbol> STRING
 %token SECTION1 SECTION2 SECTION3 NEWLINE IF THEN ELSE END WHILE CALL WITH OR AND NOT NEG PLAY
 %type <id> START PRIMITIVE ENGINE FUNCTIONS FUNCTION BODY STATEMENT IFSTATEMENT WHILELOOP EXPR ARITHLOGIC TERM ARITH1 FACTOR TERM1 PARAM PARAMLIST
 
@@ -36,7 +37,14 @@ int yywrap()
 START : SECTION1 NEWLINE PRIMITIVE SECTION2 NEWLINE FUNCTIONS SECTION3 NEWLINE ENGINE { }
 			;
 
-PRIMITIVE : ID '=' EXPR NEWLINE PRIMITIVE { printf("%s=%s\n", $1->literalName, $3); }
+PRIMITIVE : ID '=' EXPR NEWLINE PRIMITIVE { 
+									if(strncmp($1->literalName, "level", 5) == 0){
+										printf("levels_dict[\"%s\"]=%s\n", $1->literalName, $3); 
+									}
+									else{
+									printf("%s=%s\n", $1->literalName, $3);
+									 }
+}								
 					| { }
 					;
 
@@ -132,6 +140,8 @@ ARITH1 : '+' TERM ARITH1 { $$ = malloc(STRLEN);
 			 ;
 
 FACTOR : ID { $$ = malloc(STRLEN);
+				sprintf($$, "%s", $1->literalName);}
+			| STRING { $$ = malloc(STRLEN);
 				sprintf($$, "%s", $1->literalName);}
 			 | NUM { $$ = malloc(STRLEN);
 				sprintf($$, "%s", $1->literalName);}

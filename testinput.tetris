@@ -4,6 +4,8 @@ Somename = 0
 #
 Someothername = 1
 #
+title = "Python game"
+#
 Section2
 #
 { Func1 Somename = Somename+Someothername while ( 10 + 11 * 1 ) Somename = Somename+Someothername end}

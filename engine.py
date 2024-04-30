@@ -35,6 +35,9 @@ class TetrisEngine:
 			bg=bg,  # programmable
 			fg=fg,  # programmable
 			font=font,  # programmable
+			bg=config.bg,  # programmable
+			fg=config.fg,  # programmable
+			font=("Courier New", "16", "bold"),  # programmable
 		)
 		self.text_area.pack(expand=tk.YES, fill=tk.BOTH)  # fixed
 		self.board = Board(width=self.width, height=self.height)  # fixed
