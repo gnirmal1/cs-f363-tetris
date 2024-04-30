@@ -22,9 +22,7 @@ However, you can explore a wider range of extetrominoes by adjusting this option
 EXtendedTETRIckS allows you to customize the game's appearance by modifying the following options:
 
 - `title`: This option sets the title of the game window.
-- `bg`: This option determines the background color of the game area.
-- `fg`: This option sets the foreground color, which is the color of the falling pieces.
-- `font`: This option specifies the font used for displaying the game area. It is represented as a tuple containing the font family, size, and style (e.g., `("Courier New", "16", "bold")`).
+- `theme`: Allows you to choose a theme for the game, pick between `light` and `dark`
 
 ## Board Size
 
