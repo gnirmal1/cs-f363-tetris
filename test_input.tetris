@@ -1,5 +1,4 @@
 Section1
-custom_difficulty = range(1, 2)
 title = "Python Text Tetris"
 theme = 'dark'
 height = 10
