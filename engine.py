@@ -294,6 +294,15 @@ class TetrisEngine:
 		if x < 0 or x + self.piece.matrix.shape[0] > self.height:
 			return False
 		return True
+	
+	def toggle_pause_status(self, event):
+		"""Toggle the pause status of the game."""
+		self.pauseStatus = not self.pauseStatus
+		if self.pauseStatus:
+			self.text_area.insert(tk.END, "\nGame Paused. Press 'p' to continue.")
+		else:
+			self.text_area.insert(tk.END, "\nGame Resumed.")
+			self.update_step()  # Resume game updates
  
 	def end_game(self):
 		# Display the end game message
