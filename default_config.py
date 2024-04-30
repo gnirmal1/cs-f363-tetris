@@ -1,0 +1,17 @@
+title = "Python Text Tetris"
+theme = 'dark'
+height = 10
+width = 20
+default_cursor = (0, 10)
+left_key = "Left"
+right_key = "Right"
+down_key = "Down"
+up_key = "Up"
+left_offset = 1
+right_offset = 1
+down_offset = 1
+end_game_message = "You Have beaten the game!"
+levels_dict = {}
+difficulty = "easy"
+pause_key = "p"
+max_level = -1

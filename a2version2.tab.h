@@ -57,22 +57,23 @@ extern int yydebug;
     ID = 258,                      /* ID  */
     NUM = 259,                     /* NUM  */
     STRING = 260,                  /* STRING  */
-    SECTION1 = 261,                /* SECTION1  */
-    SECTION2 = 262,                /* SECTION2  */
-    SECTION3 = 263,                /* SECTION3  */
-    NEWLINE = 264,                 /* NEWLINE  */
-    IF = 265,                      /* IF  */
-    THEN = 266,                    /* THEN  */
-    ELSE = 267,                    /* ELSE  */
-    END = 268,                     /* END  */
-    WHILE = 269,                   /* WHILE  */
-    CALL = 270,                    /* CALL  */
-    WITH = 271,                    /* WITH  */
-    OR = 272,                      /* OR  */
-    AND = 273,                     /* AND  */
-    NOT = 274,                     /* NOT  */
-    NEG = 275,                     /* NEG  */
-    PLAY = 276                     /* PLAY  */
+    TUPLE = 261,                   /* TUPLE  */
+    SECTION1 = 262,                /* SECTION1  */
+    SECTION2 = 263,                /* SECTION2  */
+    SECTION3 = 264,                /* SECTION3  */
+    NEWLINE = 265,                 /* NEWLINE  */
+    IF = 266,                      /* IF  */
+    THEN = 267,                    /* THEN  */
+    ELSE = 268,                    /* ELSE  */
+    END = 269,                     /* END  */
+    WHILE = 270,                   /* WHILE  */
+    CALL = 271,                    /* CALL  */
+    WITH = 272,                    /* WITH  */
+    OR = 273,                      /* OR  */
+    AND = 274,                     /* AND  */
+    NOT = 275,                     /* NOT  */
+    NEG = 276,                     /* NEG  */
+    PLAY = 277                     /* PLAY  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -86,7 +87,7 @@ union YYSTYPE
     char* id;
 	ExtetricksSType symbol;
 
-#line 90 "a2version2.tab.h"
+#line 91 "a2version2.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

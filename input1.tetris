@@ -1,0 +1,25 @@
+Section1
+title = "Python Text Tetris"
+theme = "dark"
+height = 10
+width = 20
+default_cursor = |0,10|
+left_key = "Left"
+right_key = "Right"
+down_key = "Down"
+up_key = "Up"
+left_offset = 1
+right_offset = 1
+down_offset = 1
+end_game_message = "You Have beaten the game!"
+level1 = |10,1,5|
+level2 = |20,2,10|
+level3 = |30,3,20|
+difficulty = "easy"
+pause_key = "p"
+max_level = 3
+Somename = 0
+Someothername = 10
+Section2
+{ Func1 Somename = Somename+Someothername while ( 10 + 11 * 1 ) Somename = Somename+Someothername end}
+Section3

@@ -3,16 +3,16 @@ themes = {
     'default': {
         'bg': 'white',
         'fg': 'black',
-        'font': ('Helvetica', 16)
+        'font': ("Courier New", "16", "bold")
     },
     'dark': {
         'bg': 'grey',
         'fg': 'white',
-        'font': ('Helvetica', 16)
+        'font': ("Courier New", "16", "bold")
     },
     'light': {
-        'bg': 'lightyellow',
-        'fg': 'darkblue',
-        'font': ('Comic Sans MS', 14)
+        'bg': 'white',
+        'fg': 'blue',
+        'font': ("Courier New", "16", "bold")
     }
 }

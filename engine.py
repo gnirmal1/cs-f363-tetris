@@ -1,12 +1,13 @@
 import tkinter as tk
-from tkinter import filedialog
-from board import Board
-from allextetrominoes import *
-from shape import Shape
-from time import time, sleep
 from copy import copy, deepcopy
+from time import sleep, time
+from tkinter import filedialog
+
 import config
 import themes
+from allextetrominoes import *
+from board import Board
+from shape import Shape
 
 
 class TetrisEngine:
@@ -34,10 +35,7 @@ class TetrisEngine:
 			width=2 * self.width,  # fixed
 			bg=bg,  # programmable
 			fg=fg,  # programmable
-			font=font,  # programmable
-			bg=config.bg,  # programmable
-			fg=config.fg,  # programmable
-			font=("Courier New", "16", "bold"),  # programmable
+			font=font
 		)
 		self.text_area.pack(expand=tk.YES, fill=tk.BOTH)  # fixed
 		self.board = Board(width=self.width, height=self.height)  # fixed
@@ -170,7 +168,7 @@ class TetrisEngine:
 			]
 			if tobedeleted:
 				self.lines_cleared += len(tobedeleted)
-				self.total_score += config.levels_dict[f"level{self.current_level}"]["points_per_line"]*len(tobedeleted)
+				self.total_score += config.levels_dict[f"level{self.current_level}"][0]*len(tobedeleted)
 				self.score.set(
 					f"Total Score: {self.total_score} | Level: {self.current_level}"
 				)
@@ -199,10 +197,10 @@ class TetrisEngine:
 			self.window.after(self.move_down_duration, lambda: self.move_down_step())
 
 	def check_level_up(self):
-		if self.lines_cleared >= config.levels_dict[f"level{self.current_level}"]["lines_to_beat"]:
+		if self.lines_cleared >= config.levels_dict[f"level{self.current_level}"][1]:
 			if self.current_level < self.max_level:
 				self.current_level += 1
-				self.speed_up(config.levels_dict[f"level{self.current_level}"]["speed_percentage_change"])
+				self.speed_up(config.levels_dict[f"level{self.current_level}"][2])
 				self.score.set(
 					f"total score: {self.total_score} | Level: {self.current_level}"
 				)
@@ -219,7 +217,7 @@ class TetrisEngine:
 		self.window.after(self.update_duration, lambda: self.update_step())
 
 	def speed_up(self, percentage_change):  # programmable
-		self.move_down_duration = int(numpy.floor(self.move_down_duration * (1 + percentage_change / 100.0)))
+		self.move_down_duration = int(numpy.floor(self.move_down_duration * (1 - percentage_change / 100.0)))
 
 	def slow_down(self):  # programmable
 		self.move_down_duration = int(numpy.ceil(self.move_down_duration * 1.1))
