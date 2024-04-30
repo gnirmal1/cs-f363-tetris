@@ -19,3 +19,5 @@ levels_dict["level1"] = {"points_per_line": 10, "lines_to_beat": 1, "speed_perce
 levels_dict["level2"] = {"points_per_line": 20, "lines_to_beat": 2, "speed_percentage_change": 10}
 levels_dict["level3"] = {"points_per_line": 30, "lines_to_beat": 3, "speed_percentage_change": 20}
 difficulty = "easy"
+pause_key = "p"
+max_level = 3
