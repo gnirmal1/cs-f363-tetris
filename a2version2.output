@@ -1,0 +1,1244 @@
+Grammar
+
+    0 $accept: START $end
+
+    1 START: SECTION1 NEWLINE PRIMITIVE SECTION2 NEWLINE FUNCTIONS SECTION3 NEWLINE ENGINE
+
+    2 PRIMITIVE: ID '=' EXPR NEWLINE PRIMITIVE
+    3          | ε
+
+    4 ENGINE: '[' PLAY ']'
+    5       | '[' PLAY WITH PARAM PARAMLIST ']'
+
+    6 FUNCTIONS: FUNCTION NEWLINE FUNCTIONS
+    7          | ε
+
+    8 FUNCTION: '{' ID BODY '}'
+
+    9 BODY: STATEMENT BODY
+   10     | STATEMENT
+
+   11 STATEMENT: IFSTATEMENT
+   12          | WHILELOOP
+   13          | ID '=' EXPR
+
+   14 IFSTATEMENT: IF '(' EXPR ')' THEN STATEMENT END
+   15            | IF '(' EXPR ')' THEN STATEMENT ELSE STATEMENT END
+
+   16 WHILELOOP: WHILE '(' EXPR ')' STATEMENT END
+
+   17 EXPR: ARITHLOGIC
+   18     | '[' CALL ID ']'
+   19     | '[' CALL ID WITH PARAM PARAMLIST ']'
+
+   20 ARITHLOGIC: TERM ARITH1
+
+   21 TERM: FACTOR TERM1
+
+   22 ARITH1: '+' TERM ARITH1
+   23       | '-' TERM ARITH1
+   24       | OR TERM ARITH1
+   25       | ε
+
+   26 FACTOR: ID
+   27       | NUM
+   28       | '(' EXPR ')'
+   29       | '(' NEG EXPR ')'
+   30       | '(' NOT EXPR ')'
+
+   31 TERM1: '*' FACTOR TERM1
+   32      | AND FACTOR TERM1
+   33      | ε
+
+   34 PARAM: ID '=' EXPR
+
+   35 PARAMLIST: PARAM PARAMLIST
+   36          | ε
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '(' (40) 14 15 16 28 29 30
+    ')' (41) 14 15 16 28 29 30
+    '*' (42) 31
+    '+' (43) 22
+    '-' (45) 23
+    '=' (61) 2 13 34
+    '[' (91) 4 5 18 19
+    ']' (93) 4 5 18 19
+    '{' (123) 8
+    '}' (125) 8
+    error (256)
+    ID <symbol> (258) 2 8 13 18 19 26 34
+    NUM <symbol> (259) 27
+    SECTION1 (260) 1
+    SECTION2 (261) 1
+    SECTION3 (262) 1
+    NEWLINE (263) 1 2 6
+    IF (264) 14 15
+    THEN (265) 14 15
+    ELSE (266) 15
+    END (267) 14 15 16
+    WHILE (268) 16
+    CALL (269) 18 19
+    WITH (270) 5 19
+    OR (271) 24
+    AND (272) 32
+    NOT (273) 30
+    NEG (274) 29
+    PLAY (275) 4 5
+
+
+Nonterminals, with rules where they appear
+
+    $accept (31)
+        on left: 0
+    START <id> (32)
+        on left: 1
+        on right: 0
+    PRIMITIVE <id> (33)
+        on left: 2 3
+        on right: 1 2
+    ENGINE <id> (34)
+        on left: 4 5
+        on right: 1
+    FUNCTIONS <id> (35)
+        on left: 6 7
+        on right: 1 6
+    FUNCTION <id> (36)
+        on left: 8
+        on right: 6
+    BODY <id> (37)
+        on left: 9 10
+        on right: 8 9
+    STATEMENT <id> (38)
+        on left: 11 12 13
+        on right: 9 10 14 15 16
+    IFSTATEMENT <id> (39)
+        on left: 14 15
+        on right: 11
+    WHILELOOP <id> (40)
+        on left: 16
+        on right: 12
+    EXPR <id> (41)
+        on left: 17 18 19
+        on right: 2 13 14 15 16 28 29 30 34
+    ARITHLOGIC <id> (42)
+        on left: 20
+        on right: 17
+    TERM <id> (43)
+        on left: 21
+        on right: 20 22 23 24
+    ARITH1 <id> (44)
+        on left: 22 23 24 25
+        on right: 20 22 23 24
+    FACTOR <id> (45)
+        on left: 26 27 28 29 30
+        on right: 21 31 32
+    TERM1 <id> (46)
+        on left: 31 32 33
+        on right: 21 31 32
+    PARAM <id> (47)
+        on left: 34
+        on right: 5 19 35
+    PARAMLIST <id> (48)
+        on left: 35 36
+        on right: 5 19 35
+
+
+State 0
+
+    0 $accept: • START $end
+    1 START: • SECTION1 NEWLINE PRIMITIVE SECTION2 NEWLINE FUNCTIONS SECTION3 NEWLINE ENGINE
+
+    SECTION1  shift, and go to state 1
+
+    START  go to state 2
+
+
+State 1
+
+    1 START: SECTION1 • NEWLINE PRIMITIVE SECTION2 NEWLINE FUNCTIONS SECTION3 NEWLINE ENGINE
+
+    NEWLINE  shift, and go to state 3
+
+
+State 2
+
+    0 $accept: START • $end
+
+    $end  shift, and go to state 4
+
+
+State 3
+
+    1 START: SECTION1 NEWLINE • PRIMITIVE SECTION2 NEWLINE FUNCTIONS SECTION3 NEWLINE ENGINE
+    2 PRIMITIVE: • ID '=' EXPR NEWLINE PRIMITIVE
+    3          | ε •  [SECTION2]
+
+    ID  shift, and go to state 5
+
+    $default  reduce using rule 3 (PRIMITIVE)
+
+    PRIMITIVE  go to state 6
+
+
+State 4
+
+    0 $accept: START $end •
+
+    $default  accept
+
+
+State 5
+
+    2 PRIMITIVE: ID • '=' EXPR NEWLINE PRIMITIVE
+
+    '='  shift, and go to state 7
+
+
+State 6
+
+    1 START: SECTION1 NEWLINE PRIMITIVE • SECTION2 NEWLINE FUNCTIONS SECTION3 NEWLINE ENGINE
+
+    SECTION2  shift, and go to state 8
+
+
+State 7
+
+    2 PRIMITIVE: ID '=' • EXPR NEWLINE PRIMITIVE
+   17 EXPR: • ARITHLOGIC
+   18     | • '[' CALL ID ']'
+   19     | • '[' CALL ID WITH PARAM PARAMLIST ']'
+   20 ARITHLOGIC: • TERM ARITH1
+   21 TERM: • FACTOR TERM1
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '['  shift, and go to state 11
+    '('  shift, and go to state 12
+
+    EXPR        go to state 13
+    ARITHLOGIC  go to state 14
+    TERM        go to state 15
+    FACTOR      go to state 16
+
+
+State 8
+
+    1 START: SECTION1 NEWLINE PRIMITIVE SECTION2 • NEWLINE FUNCTIONS SECTION3 NEWLINE ENGINE
+
+    NEWLINE  shift, and go to state 17
+
+
+State 9
+
+   26 FACTOR: ID •
+
+    $default  reduce using rule 26 (FACTOR)
+
+
+State 10
+
+   27 FACTOR: NUM •
+
+    $default  reduce using rule 27 (FACTOR)
+
+
+State 11
+
+   18 EXPR: '[' • CALL ID ']'
+   19     | '[' • CALL ID WITH PARAM PARAMLIST ']'
+
+    CALL  shift, and go to state 18
+
+
+State 12
+
+   17 EXPR: • ARITHLOGIC
+   18     | • '[' CALL ID ']'
+   19     | • '[' CALL ID WITH PARAM PARAMLIST ']'
+   20 ARITHLOGIC: • TERM ARITH1
+   21 TERM: • FACTOR TERM1
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   28       | '(' • EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   29       | '(' • NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+   30       | '(' • NOT EXPR ')'
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    NOT  shift, and go to state 19
+    NEG  shift, and go to state 20
+    '['  shift, and go to state 11
+    '('  shift, and go to state 12
+
+    EXPR        go to state 21
+    ARITHLOGIC  go to state 14
+    TERM        go to state 15
+    FACTOR      go to state 16
+
+
+State 13
+
+    2 PRIMITIVE: ID '=' EXPR • NEWLINE PRIMITIVE
+
+    NEWLINE  shift, and go to state 22
+
+
+State 14
+
+   17 EXPR: ARITHLOGIC •
+
+    $default  reduce using rule 17 (EXPR)
+
+
+State 15
+
+   20 ARITHLOGIC: TERM • ARITH1
+   22 ARITH1: • '+' TERM ARITH1
+   23       | • '-' TERM ARITH1
+   24       | • OR TERM ARITH1
+   25       | ε •  [ID, NEWLINE, IF, ELSE, END, WHILE, ']', '}', ')']
+
+    OR   shift, and go to state 23
+    '+'  shift, and go to state 24
+    '-'  shift, and go to state 25
+
+    $default  reduce using rule 25 (ARITH1)
+
+    ARITH1  go to state 26
+
+
+State 16
+
+   21 TERM: FACTOR • TERM1
+   31 TERM1: • '*' FACTOR TERM1
+   32      | • AND FACTOR TERM1
+   33      | ε •  [ID, NEWLINE, IF, ELSE, END, WHILE, OR, ']', '}', ')', '+', '-']
+
+    AND  shift, and go to state 27
+    '*'  shift, and go to state 28
+
+    $default  reduce using rule 33 (TERM1)
+
+    TERM1  go to state 29
+
+
+State 17
+
+    1 START: SECTION1 NEWLINE PRIMITIVE SECTION2 NEWLINE • FUNCTIONS SECTION3 NEWLINE ENGINE
+    6 FUNCTIONS: • FUNCTION NEWLINE FUNCTIONS
+    7          | ε •  [SECTION3]
+    8 FUNCTION: • '{' ID BODY '}'
+
+    '{'  shift, and go to state 30
+
+    $default  reduce using rule 7 (FUNCTIONS)
+
+    FUNCTIONS  go to state 31
+    FUNCTION   go to state 32
+
+
+State 18
+
+   18 EXPR: '[' CALL • ID ']'
+   19     | '[' CALL • ID WITH PARAM PARAMLIST ']'
+
+    ID  shift, and go to state 33
+
+
+State 19
+
+   17 EXPR: • ARITHLOGIC
+   18     | • '[' CALL ID ']'
+   19     | • '[' CALL ID WITH PARAM PARAMLIST ']'
+   20 ARITHLOGIC: • TERM ARITH1
+   21 TERM: • FACTOR TERM1
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+   30       | '(' NOT • EXPR ')'
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '['  shift, and go to state 11
+    '('  shift, and go to state 12
+
+    EXPR        go to state 34
+    ARITHLOGIC  go to state 14
+    TERM        go to state 15
+    FACTOR      go to state 16
+
+
+State 20
+
+   17 EXPR: • ARITHLOGIC
+   18     | • '[' CALL ID ']'
+   19     | • '[' CALL ID WITH PARAM PARAMLIST ']'
+   20 ARITHLOGIC: • TERM ARITH1
+   21 TERM: • FACTOR TERM1
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   29       | '(' NEG • EXPR ')'
+   30       | • '(' NOT EXPR ')'
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '['  shift, and go to state 11
+    '('  shift, and go to state 12
+
+    EXPR        go to state 35
+    ARITHLOGIC  go to state 14
+    TERM        go to state 15
+    FACTOR      go to state 16
+
+
+State 21
+
+   28 FACTOR: '(' EXPR • ')'
+
+    ')'  shift, and go to state 36
+
+
+State 22
+
+    2 PRIMITIVE: • ID '=' EXPR NEWLINE PRIMITIVE
+    2          | ID '=' EXPR NEWLINE • PRIMITIVE
+    3          | ε •  [SECTION2]
+
+    ID  shift, and go to state 5
+
+    $default  reduce using rule 3 (PRIMITIVE)
+
+    PRIMITIVE  go to state 37
+
+
+State 23
+
+   21 TERM: • FACTOR TERM1
+   24 ARITH1: OR • TERM ARITH1
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '('  shift, and go to state 12
+
+    TERM    go to state 38
+    FACTOR  go to state 16
+
+
+State 24
+
+   21 TERM: • FACTOR TERM1
+   22 ARITH1: '+' • TERM ARITH1
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '('  shift, and go to state 12
+
+    TERM    go to state 39
+    FACTOR  go to state 16
+
+
+State 25
+
+   21 TERM: • FACTOR TERM1
+   23 ARITH1: '-' • TERM ARITH1
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '('  shift, and go to state 12
+
+    TERM    go to state 40
+    FACTOR  go to state 16
+
+
+State 26
+
+   20 ARITHLOGIC: TERM ARITH1 •
+
+    $default  reduce using rule 20 (ARITHLOGIC)
+
+
+State 27
+
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+   32 TERM1: AND • FACTOR TERM1
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '('  shift, and go to state 12
+
+    FACTOR  go to state 41
+
+
+State 28
+
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+   31 TERM1: '*' • FACTOR TERM1
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '('  shift, and go to state 12
+
+    FACTOR  go to state 42
+
+
+State 29
+
+   21 TERM: FACTOR TERM1 •
+
+    $default  reduce using rule 21 (TERM)
+
+
+State 30
+
+    8 FUNCTION: '{' • ID BODY '}'
+
+    ID  shift, and go to state 43
+
+
+State 31
+
+    1 START: SECTION1 NEWLINE PRIMITIVE SECTION2 NEWLINE FUNCTIONS • SECTION3 NEWLINE ENGINE
+
+    SECTION3  shift, and go to state 44
+
+
+State 32
+
+    6 FUNCTIONS: FUNCTION • NEWLINE FUNCTIONS
+
+    NEWLINE  shift, and go to state 45
+
+
+State 33
+
+   18 EXPR: '[' CALL ID • ']'
+   19     | '[' CALL ID • WITH PARAM PARAMLIST ']'
+
+    WITH  shift, and go to state 46
+    ']'   shift, and go to state 47
+
+
+State 34
+
+   30 FACTOR: '(' NOT EXPR • ')'
+
+    ')'  shift, and go to state 48
+
+
+State 35
+
+   29 FACTOR: '(' NEG EXPR • ')'
+
+    ')'  shift, and go to state 49
+
+
+State 36
+
+   28 FACTOR: '(' EXPR ')' •
+
+    $default  reduce using rule 28 (FACTOR)
+
+
+State 37
+
+    2 PRIMITIVE: ID '=' EXPR NEWLINE PRIMITIVE •
+
+    $default  reduce using rule 2 (PRIMITIVE)
+
+
+State 38
+
+   22 ARITH1: • '+' TERM ARITH1
+   23       | • '-' TERM ARITH1
+   24       | • OR TERM ARITH1
+   24       | OR TERM • ARITH1
+   25       | ε •  [ID, NEWLINE, IF, ELSE, END, WHILE, ']', '}', ')']
+
+    OR   shift, and go to state 23
+    '+'  shift, and go to state 24
+    '-'  shift, and go to state 25
+
+    $default  reduce using rule 25 (ARITH1)
+
+    ARITH1  go to state 50
+
+
+State 39
+
+   22 ARITH1: • '+' TERM ARITH1
+   22       | '+' TERM • ARITH1
+   23       | • '-' TERM ARITH1
+   24       | • OR TERM ARITH1
+   25       | ε •  [ID, NEWLINE, IF, ELSE, END, WHILE, ']', '}', ')']
+
+    OR   shift, and go to state 23
+    '+'  shift, and go to state 24
+    '-'  shift, and go to state 25
+
+    $default  reduce using rule 25 (ARITH1)
+
+    ARITH1  go to state 51
+
+
+State 40
+
+   22 ARITH1: • '+' TERM ARITH1
+   23       | • '-' TERM ARITH1
+   23       | '-' TERM • ARITH1
+   24       | • OR TERM ARITH1
+   25       | ε •  [ID, NEWLINE, IF, ELSE, END, WHILE, ']', '}', ')']
+
+    OR   shift, and go to state 23
+    '+'  shift, and go to state 24
+    '-'  shift, and go to state 25
+
+    $default  reduce using rule 25 (ARITH1)
+
+    ARITH1  go to state 52
+
+
+State 41
+
+   31 TERM1: • '*' FACTOR TERM1
+   32      | • AND FACTOR TERM1
+   32      | AND FACTOR • TERM1
+   33      | ε •  [ID, NEWLINE, IF, ELSE, END, WHILE, OR, ']', '}', ')', '+', '-']
+
+    AND  shift, and go to state 27
+    '*'  shift, and go to state 28
+
+    $default  reduce using rule 33 (TERM1)
+
+    TERM1  go to state 53
+
+
+State 42
+
+   31 TERM1: • '*' FACTOR TERM1
+   31      | '*' FACTOR • TERM1
+   32      | • AND FACTOR TERM1
+   33      | ε •  [ID, NEWLINE, IF, ELSE, END, WHILE, OR, ']', '}', ')', '+', '-']
+
+    AND  shift, and go to state 27
+    '*'  shift, and go to state 28
+
+    $default  reduce using rule 33 (TERM1)
+
+    TERM1  go to state 54
+
+
+State 43
+
+    8 FUNCTION: '{' ID • BODY '}'
+    9 BODY: • STATEMENT BODY
+   10     | • STATEMENT
+   11 STATEMENT: • IFSTATEMENT
+   12          | • WHILELOOP
+   13          | • ID '=' EXPR
+   14 IFSTATEMENT: • IF '(' EXPR ')' THEN STATEMENT END
+   15            | • IF '(' EXPR ')' THEN STATEMENT ELSE STATEMENT END
+   16 WHILELOOP: • WHILE '(' EXPR ')' STATEMENT END
+
+    ID     shift, and go to state 55
+    IF     shift, and go to state 56
+    WHILE  shift, and go to state 57
+
+    BODY         go to state 58
+    STATEMENT    go to state 59
+    IFSTATEMENT  go to state 60
+    WHILELOOP    go to state 61
+
+
+State 44
+
+    1 START: SECTION1 NEWLINE PRIMITIVE SECTION2 NEWLINE FUNCTIONS SECTION3 • NEWLINE ENGINE
+
+    NEWLINE  shift, and go to state 62
+
+
+State 45
+
+    6 FUNCTIONS: • FUNCTION NEWLINE FUNCTIONS
+    6          | FUNCTION NEWLINE • FUNCTIONS
+    7          | ε •  [SECTION3]
+    8 FUNCTION: • '{' ID BODY '}'
+
+    '{'  shift, and go to state 30
+
+    $default  reduce using rule 7 (FUNCTIONS)
+
+    FUNCTIONS  go to state 63
+    FUNCTION   go to state 32
+
+
+State 46
+
+   19 EXPR: '[' CALL ID WITH • PARAM PARAMLIST ']'
+   34 PARAM: • ID '=' EXPR
+
+    ID  shift, and go to state 64
+
+    PARAM  go to state 65
+
+
+State 47
+
+   18 EXPR: '[' CALL ID ']' •
+
+    $default  reduce using rule 18 (EXPR)
+
+
+State 48
+
+   30 FACTOR: '(' NOT EXPR ')' •
+
+    $default  reduce using rule 30 (FACTOR)
+
+
+State 49
+
+   29 FACTOR: '(' NEG EXPR ')' •
+
+    $default  reduce using rule 29 (FACTOR)
+
+
+State 50
+
+   24 ARITH1: OR TERM ARITH1 •
+
+    $default  reduce using rule 24 (ARITH1)
+
+
+State 51
+
+   22 ARITH1: '+' TERM ARITH1 •
+
+    $default  reduce using rule 22 (ARITH1)
+
+
+State 52
+
+   23 ARITH1: '-' TERM ARITH1 •
+
+    $default  reduce using rule 23 (ARITH1)
+
+
+State 53
+
+   32 TERM1: AND FACTOR TERM1 •
+
+    $default  reduce using rule 32 (TERM1)
+
+
+State 54
+
+   31 TERM1: '*' FACTOR TERM1 •
+
+    $default  reduce using rule 31 (TERM1)
+
+
+State 55
+
+   13 STATEMENT: ID • '=' EXPR
+
+    '='  shift, and go to state 66
+
+
+State 56
+
+   14 IFSTATEMENT: IF • '(' EXPR ')' THEN STATEMENT END
+   15            | IF • '(' EXPR ')' THEN STATEMENT ELSE STATEMENT END
+
+    '('  shift, and go to state 67
+
+
+State 57
+
+   16 WHILELOOP: WHILE • '(' EXPR ')' STATEMENT END
+
+    '('  shift, and go to state 68
+
+
+State 58
+
+    8 FUNCTION: '{' ID BODY • '}'
+
+    '}'  shift, and go to state 69
+
+
+State 59
+
+    9 BODY: • STATEMENT BODY
+    9     | STATEMENT • BODY
+   10     | • STATEMENT
+   10     | STATEMENT •  ['}']
+   11 STATEMENT: • IFSTATEMENT
+   12          | • WHILELOOP
+   13          | • ID '=' EXPR
+   14 IFSTATEMENT: • IF '(' EXPR ')' THEN STATEMENT END
+   15            | • IF '(' EXPR ')' THEN STATEMENT ELSE STATEMENT END
+   16 WHILELOOP: • WHILE '(' EXPR ')' STATEMENT END
+
+    ID     shift, and go to state 55
+    IF     shift, and go to state 56
+    WHILE  shift, and go to state 57
+
+    $default  reduce using rule 10 (BODY)
+
+    BODY         go to state 70
+    STATEMENT    go to state 59
+    IFSTATEMENT  go to state 60
+    WHILELOOP    go to state 61
+
+
+State 60
+
+   11 STATEMENT: IFSTATEMENT •
+
+    $default  reduce using rule 11 (STATEMENT)
+
+
+State 61
+
+   12 STATEMENT: WHILELOOP •
+
+    $default  reduce using rule 12 (STATEMENT)
+
+
+State 62
+
+    1 START: SECTION1 NEWLINE PRIMITIVE SECTION2 NEWLINE FUNCTIONS SECTION3 NEWLINE • ENGINE
+    4 ENGINE: • '[' PLAY ']'
+    5       | • '[' PLAY WITH PARAM PARAMLIST ']'
+
+    '['  shift, and go to state 71
+
+    ENGINE  go to state 72
+
+
+State 63
+
+    6 FUNCTIONS: FUNCTION NEWLINE FUNCTIONS •
+
+    $default  reduce using rule 6 (FUNCTIONS)
+
+
+State 64
+
+   34 PARAM: ID • '=' EXPR
+
+    '='  shift, and go to state 73
+
+
+State 65
+
+   19 EXPR: '[' CALL ID WITH PARAM • PARAMLIST ']'
+   34 PARAM: • ID '=' EXPR
+   35 PARAMLIST: • PARAM PARAMLIST
+   36          | ε •  [']']
+
+    ID  shift, and go to state 64
+
+    $default  reduce using rule 36 (PARAMLIST)
+
+    PARAM      go to state 74
+    PARAMLIST  go to state 75
+
+
+State 66
+
+   13 STATEMENT: ID '=' • EXPR
+   17 EXPR: • ARITHLOGIC
+   18     | • '[' CALL ID ']'
+   19     | • '[' CALL ID WITH PARAM PARAMLIST ']'
+   20 ARITHLOGIC: • TERM ARITH1
+   21 TERM: • FACTOR TERM1
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '['  shift, and go to state 11
+    '('  shift, and go to state 12
+
+    EXPR        go to state 76
+    ARITHLOGIC  go to state 14
+    TERM        go to state 15
+    FACTOR      go to state 16
+
+
+State 67
+
+   14 IFSTATEMENT: IF '(' • EXPR ')' THEN STATEMENT END
+   15            | IF '(' • EXPR ')' THEN STATEMENT ELSE STATEMENT END
+   17 EXPR: • ARITHLOGIC
+   18     | • '[' CALL ID ']'
+   19     | • '[' CALL ID WITH PARAM PARAMLIST ']'
+   20 ARITHLOGIC: • TERM ARITH1
+   21 TERM: • FACTOR TERM1
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '['  shift, and go to state 11
+    '('  shift, and go to state 12
+
+    EXPR        go to state 77
+    ARITHLOGIC  go to state 14
+    TERM        go to state 15
+    FACTOR      go to state 16
+
+
+State 68
+
+   16 WHILELOOP: WHILE '(' • EXPR ')' STATEMENT END
+   17 EXPR: • ARITHLOGIC
+   18     | • '[' CALL ID ']'
+   19     | • '[' CALL ID WITH PARAM PARAMLIST ']'
+   20 ARITHLOGIC: • TERM ARITH1
+   21 TERM: • FACTOR TERM1
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '['  shift, and go to state 11
+    '('  shift, and go to state 12
+
+    EXPR        go to state 78
+    ARITHLOGIC  go to state 14
+    TERM        go to state 15
+    FACTOR      go to state 16
+
+
+State 69
+
+    8 FUNCTION: '{' ID BODY '}' •
+
+    $default  reduce using rule 8 (FUNCTION)
+
+
+State 70
+
+    9 BODY: STATEMENT BODY •
+
+    $default  reduce using rule 9 (BODY)
+
+
+State 71
+
+    4 ENGINE: '[' • PLAY ']'
+    5       | '[' • PLAY WITH PARAM PARAMLIST ']'
+
+    PLAY  shift, and go to state 79
+
+
+State 72
+
+    1 START: SECTION1 NEWLINE PRIMITIVE SECTION2 NEWLINE FUNCTIONS SECTION3 NEWLINE ENGINE •
+
+    $default  reduce using rule 1 (START)
+
+
+State 73
+
+   17 EXPR: • ARITHLOGIC
+   18     | • '[' CALL ID ']'
+   19     | • '[' CALL ID WITH PARAM PARAMLIST ']'
+   20 ARITHLOGIC: • TERM ARITH1
+   21 TERM: • FACTOR TERM1
+   26 FACTOR: • ID
+   27       | • NUM
+   28       | • '(' EXPR ')'
+   29       | • '(' NEG EXPR ')'
+   30       | • '(' NOT EXPR ')'
+   34 PARAM: ID '=' • EXPR
+
+    ID   shift, and go to state 9
+    NUM  shift, and go to state 10
+    '['  shift, and go to state 11
+    '('  shift, and go to state 12
+
+    EXPR        go to state 80
+    ARITHLOGIC  go to state 14
+    TERM        go to state 15
+    FACTOR      go to state 16
+
+
+State 74
+
+   34 PARAM: • ID '=' EXPR
+   35 PARAMLIST: • PARAM PARAMLIST
+   35          | PARAM • PARAMLIST
+   36          | ε •  [']']
+
+    ID  shift, and go to state 64
+
+    $default  reduce using rule 36 (PARAMLIST)
+
+    PARAM      go to state 74
+    PARAMLIST  go to state 81
+
+
+State 75
+
+   19 EXPR: '[' CALL ID WITH PARAM PARAMLIST • ']'
+
+    ']'  shift, and go to state 82
+
+
+State 76
+
+   13 STATEMENT: ID '=' EXPR •
+
+    $default  reduce using rule 13 (STATEMENT)
+
+
+State 77
+
+   14 IFSTATEMENT: IF '(' EXPR • ')' THEN STATEMENT END
+   15            | IF '(' EXPR • ')' THEN STATEMENT ELSE STATEMENT END
+
+    ')'  shift, and go to state 83
+
+
+State 78
+
+   16 WHILELOOP: WHILE '(' EXPR • ')' STATEMENT END
+
+    ')'  shift, and go to state 84
+
+
+State 79
+
+    4 ENGINE: '[' PLAY • ']'
+    5       | '[' PLAY • WITH PARAM PARAMLIST ']'
+
+    WITH  shift, and go to state 85
+    ']'   shift, and go to state 86
+
+
+State 80
+
+   34 PARAM: ID '=' EXPR •
+
+    $default  reduce using rule 34 (PARAM)
+
+
+State 81
+
+   35 PARAMLIST: PARAM PARAMLIST •
+
+    $default  reduce using rule 35 (PARAMLIST)
+
+
+State 82
+
+   19 EXPR: '[' CALL ID WITH PARAM PARAMLIST ']' •
+
+    $default  reduce using rule 19 (EXPR)
+
+
+State 83
+
+   14 IFSTATEMENT: IF '(' EXPR ')' • THEN STATEMENT END
+   15            | IF '(' EXPR ')' • THEN STATEMENT ELSE STATEMENT END
+
+    THEN  shift, and go to state 87
+
+
+State 84
+
+   11 STATEMENT: • IFSTATEMENT
+   12          | • WHILELOOP
+   13          | • ID '=' EXPR
+   14 IFSTATEMENT: • IF '(' EXPR ')' THEN STATEMENT END
+   15            | • IF '(' EXPR ')' THEN STATEMENT ELSE STATEMENT END
+   16 WHILELOOP: • WHILE '(' EXPR ')' STATEMENT END
+   16          | WHILE '(' EXPR ')' • STATEMENT END
+
+    ID     shift, and go to state 55
+    IF     shift, and go to state 56
+    WHILE  shift, and go to state 57
+
+    STATEMENT    go to state 88
+    IFSTATEMENT  go to state 60
+    WHILELOOP    go to state 61
+
+
+State 85
+
+    5 ENGINE: '[' PLAY WITH • PARAM PARAMLIST ']'
+   34 PARAM: • ID '=' EXPR
+
+    ID  shift, and go to state 64
+
+    PARAM  go to state 89
+
+
+State 86
+
+    4 ENGINE: '[' PLAY ']' •
+
+    $default  reduce using rule 4 (ENGINE)
+
+
+State 87
+
+   11 STATEMENT: • IFSTATEMENT
+   12          | • WHILELOOP
+   13          | • ID '=' EXPR
+   14 IFSTATEMENT: • IF '(' EXPR ')' THEN STATEMENT END
+   14            | IF '(' EXPR ')' THEN • STATEMENT END
+   15            | • IF '(' EXPR ')' THEN STATEMENT ELSE STATEMENT END
+   15            | IF '(' EXPR ')' THEN • STATEMENT ELSE STATEMENT END
+   16 WHILELOOP: • WHILE '(' EXPR ')' STATEMENT END
+
+    ID     shift, and go to state 55
+    IF     shift, and go to state 56
+    WHILE  shift, and go to state 57
+
+    STATEMENT    go to state 90
+    IFSTATEMENT  go to state 60
+    WHILELOOP    go to state 61
+
+
+State 88
+
+   16 WHILELOOP: WHILE '(' EXPR ')' STATEMENT • END
+
+    END  shift, and go to state 91
+
+
+State 89
+
+    5 ENGINE: '[' PLAY WITH PARAM • PARAMLIST ']'
+   34 PARAM: • ID '=' EXPR
+   35 PARAMLIST: • PARAM PARAMLIST
+   36          | ε •  [']']
+
+    ID  shift, and go to state 64
+
+    $default  reduce using rule 36 (PARAMLIST)
+
+    PARAM      go to state 74
+    PARAMLIST  go to state 92
+
+
+State 90
+
+   14 IFSTATEMENT: IF '(' EXPR ')' THEN STATEMENT • END
+   15            | IF '(' EXPR ')' THEN STATEMENT • ELSE STATEMENT END
+
+    ELSE  shift, and go to state 93
+    END   shift, and go to state 94
+
+
+State 91
+
+   16 WHILELOOP: WHILE '(' EXPR ')' STATEMENT END •
+
+    $default  reduce using rule 16 (WHILELOOP)
+
+
+State 92
+
+    5 ENGINE: '[' PLAY WITH PARAM PARAMLIST • ']'
+
+    ']'  shift, and go to state 95
+
+
+State 93
+
+   11 STATEMENT: • IFSTATEMENT
+   12          | • WHILELOOP
+   13          | • ID '=' EXPR
+   14 IFSTATEMENT: • IF '(' EXPR ')' THEN STATEMENT END
+   15            | • IF '(' EXPR ')' THEN STATEMENT ELSE STATEMENT END
+   15            | IF '(' EXPR ')' THEN STATEMENT ELSE • STATEMENT END
+   16 WHILELOOP: • WHILE '(' EXPR ')' STATEMENT END
+
+    ID     shift, and go to state 55
+    IF     shift, and go to state 56
+    WHILE  shift, and go to state 57
+
+    STATEMENT    go to state 96
+    IFSTATEMENT  go to state 60
+    WHILELOOP    go to state 61
+
+
+State 94
+
+   14 IFSTATEMENT: IF '(' EXPR ')' THEN STATEMENT END •
+
+    $default  reduce using rule 14 (IFSTATEMENT)
+
+
+State 95
+
+    5 ENGINE: '[' PLAY WITH PARAM PARAMLIST ']' •
+
+    $default  reduce using rule 5 (ENGINE)
+
+
+State 96
+
+   15 IFSTATEMENT: IF '(' EXPR ')' THEN STATEMENT ELSE STATEMENT • END
+
+    END  shift, and go to state 97
+
+
+State 97
+
+   15 IFSTATEMENT: IF '(' EXPR ')' THEN STATEMENT ELSE STATEMENT END •
+
+    $default  reduce using rule 15 (IFSTATEMENT)

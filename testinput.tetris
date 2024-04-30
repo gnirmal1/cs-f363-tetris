@@ -1,0 +1,13 @@
+Section1
+#
+Somename = 0
+#
+Someothername = 1
+#
+Section2
+#
+{ Func1 Somename = Somename+Someothername while ( 10 + 11 * 1 ) Somename = Somename+Someothername end}
+#
+Section3
+#
+[ play with Somename = 0 ]

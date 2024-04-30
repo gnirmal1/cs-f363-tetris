@@ -1,0 +1,9 @@
+Someothername=1  
+Somename=0  
+def Func1(){
+Somename=Somename  + Someothername  
+while 10  + 11 * 1  {
+Somename=Somename  + Someothername  
+}
+}
+play(Somename=0  )
