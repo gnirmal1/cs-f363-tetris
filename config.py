@@ -18,3 +18,4 @@ levels_dict = {}
 levels_dict["level1"] = {"points_per_line": 10, "points_to_beat": 30, "speed_percentage_change": 10}
 difficulty = "easy"
 pause_key = "p"
+max_level = 3
