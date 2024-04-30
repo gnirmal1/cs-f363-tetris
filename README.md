@@ -1,4 +1,4 @@
-Collaboration disclosure: Nirmal Govindaraj(2021A7PS04441G), Yash Bhisikar(2021A7PS0483G), Valeti Kumarakrishna(2021A7PS2617G), Siddhant Kulkarni(2021A7PS2606G) have collaborated on this project.
+Collaboration disclosure: Nirmal Govindaraj (2021A7PS04441G), Yash Bhisikar (2021A7PS0483G), Valeti Kumarakrishna (2021A7PS2617G) and Siddhant Kulkarni (2021A7PS2606G) have collaborated on this project.
 
 Converts the given syntax to bython (bracketed python) which can then be converted to python code using by2py script.
 
