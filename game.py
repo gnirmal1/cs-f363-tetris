@@ -34,12 +34,5 @@ left_key="Left"
 default_cursor=(0, 10)
 width=20  
 height=10  
-theme="hecker"  
+theme=""  
 title="Python Text Tetris"  
-def Func1():
-    Somename=Somename  + Someothername  
-    while 10  + 11 * 1:
-        Somename=Somename  + Someothername  
-    
-
-

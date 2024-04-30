@@ -1,6 +1,6 @@
 Section1
 title = "Python Text Tetris"
-theme = "hecker"
+theme = ""
 height = 10
 width = 20
 default_cursor = |0,10|
@@ -21,5 +21,4 @@ max_level = 3
 Somename = 0
 Someothername = 10
 Section2
-{ Func1 Somename = Somename+Someothername while ( 10 + 11 * 1 ) Somename = Somename+Someothername end}
 Section3
