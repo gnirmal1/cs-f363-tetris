@@ -320,7 +320,7 @@ class TetrisEngine:
 		"""Toggle the pause status of the game."""
 		self.pauseStatus = not self.pauseStatus
 		if self.pauseStatus:
-			self.text_area.insert(tk.END, "\nGame Paused. Press 'p' to continue.")
+			self.text_area.insert(tk.END, f"\nGame Paused. Press '{config.pause_key}' to continue.")
 		else:
 			self.text_area.insert(tk.END, "\nGame Resumed.")
 			self.update_step()  # Resume game updates
