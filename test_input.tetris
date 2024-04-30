@@ -1,0 +1,34 @@
+Section1
+custom_difficulty = range(1, 2)
+title = "Python Text Tetris"
+mode = 1
+theme = 'dark'
+bg = 'white'
+fg = 'black'
+font =  ('Helvetica', 16)
+height = 10
+width = 20
+end_game_message = "You Have beaten the game!"
+levels_dict = {}
+levels_dict["level1"] = {"points_per_line": 10, "lines_to_beat": 1, "speed_percentage_change": 5}
+levels_dict["level2"] = {"points_per_line": 20, "lines_to_beat": 2, "speed_percentage_change": 10}
+levels_dict["level3"] = {"points_per_line": 30, "lines_to_beat": 3, "speed_percentage_change": 20}
+difficulty = "easy"
+max_level = 3
+Section2
+{ getbg
+return bg
+}
+Section3
+[
+default_cursor = (0, int(width / 2 - 1))
+left_key = "Left"
+right_key = "Right"
+down_key = "Down"
+up_key = "Up"
+left_offset = 1
+right_offset = 1
+down_offset = 1 
+pause_key = "p"
+play
+]
