@@ -1,11 +1,7 @@
 Section1
 custom_difficulty = range(1, 2)
 title = "Python Text Tetris"
-mode = 1
 theme = 'dark'
-bg = 'white'
-fg = 'black'
-font =  ('Helvetica', 16)
 height = 10
 width = 20
 end_game_message = "You Have beaten the game!"
