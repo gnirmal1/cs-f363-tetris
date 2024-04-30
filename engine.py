@@ -6,6 +6,7 @@ from shape import Shape
 from time import time, sleep
 from copy import copy, deepcopy
 import config
+import themes
 
 
 class TetrisEngine:
@@ -21,6 +22,7 @@ class TetrisEngine:
 			print("Invalid difficulty level. Exiting...")
 			exit()
 
+		bg, fg, font = self.load_theme(config.theme)
 		self.window = tk.Tk()  # fixed
 		self.window.title(config.title)  # Programmable, inconsequential
 		self.width = config.width  # Essential and programmable
@@ -30,9 +32,9 @@ class TetrisEngine:
 			wrap=tk.CHAR,  # programmable, please find some way not to let it wrap
 			height=self.height,  # fixed
 			width=2 * self.width,  # fixed
-			bg=config.bg,  # programmable
-			fg=config.fg,  # programmable
-			font=config.font,  # programmable
+			bg=bg,  # programmable
+			fg=fg,  # programmable
+			font=font,  # programmable
 		)
 		self.text_area.pack(expand=tk.YES, fill=tk.BOTH)  # fixed
 		self.board = Board(width=self.width, height=self.height)  # fixed
@@ -83,6 +85,10 @@ class TetrisEngine:
 		):
 			ghost_cursor = (ghost_cursor[0] + 1, ghost_cursor[1])
 		return ghost_cursor
+
+	def load_theme(self, theme_name):
+		theme = themes.themes.get(theme_name, themes.themes['default'])
+		return theme['bg'], theme['fg'], theme['font']
 
 	# Each of the methods below are programmable (replaceable) -- but give in the documentation
 	# what the game programmer has to provide -- the functionality, role, the entagling of concerns.

@@ -1,8 +1,6 @@
 extetromino_distribution = range(1, 2)
 title = "Python Text Tetris"
-bg = "light gray"
-fg = "blue"
-font = ("Courier New", "16", "bold")
+theme = 'dark'
 height = 10
 width = 20
 default_cursor = (0, int(width / 2 - 1))
