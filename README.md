@@ -1,60 +1,58 @@
-Collaboration disclosure: Nirmal Govindaraj(2021A7PS04441G), Yash Bhisikar(2021A7PS0483G), Valeti Kumarakrishna(2021A7PS2617G), Siddhant Kulkarni(2021A7PS2606G) have collaborated on this project
-Converts the given syntax to bython (bracketed python) which can then be converted to python code using by2py script.
+[compile lex and yacc code using] bison -d -r all a2version2.y ; flex extetrickscanner.l ; gcc extetrickstype.c lex.yy.c a2version2.tab.c
 
-[Bython](https://github.com/mathialo/bython/tree/master) contains instructions on how to install and use. Use by2py script to get equivalent python code
+[test code by running] ./a.out < testinput.tetris > temp.by
 
-compile lex and yacc code using `bison -d -r all a2version2.y ; flex extetrickscanner.l ;  gcc extetrickstype.c lex.yy.c a2version2.tab.c`
+[once Bython is installed,] run by2py temp.by [to get Python converted code]
 
-test code by running `./a.out < testinput.tetris > temp.by`
+# Python Text Tetris Configuration Options
 
-once bython is installed run `by2py temp.by` to get python converted code
+This README provides an overview of the configuration options available for the Python Text Tetris game. By modifying these options, you can customize various aspects of the game to suit your preferences.
 
-## Config Options
+## Game Appearance
 
-## Extetromino Distribution
+- `title`: Sets the title of the game window.
+- `bg`: Specifies the background color of the game. Default is "light gray".
+- `fg`: Specifies the foreground color (text color) of the game. Default is "blue".
+- `font`: Defines the font style, size, and weight for the game text. Default is ("Courier New", "16", "bold").
+- `theme`: Defines the themes available. Options are dark, light, default and hackermode 
 
-The `extetromino_distribution` option in `config.py` determines the range of extetrominoes (generalized tetrominoes) that can appear in the game. By default, it is set to `range(1, 2)`, which means only the classic tetrominoes (I, O, T, J, L, S, Z) will be included.
+## Board Dimensions
 
-However, you can explore a wider range of extetrominoes by adjusting this option. For example, setting `extetromino_distribution = range(1, 8)` will include all one-sided extetrominoes, while `extetromino_distribution = range(1, 74)` will include all free extetrominoes, offering a significantly more challenging gameplay experience.
+- `height`: Sets the height of the game board in number of rows. Default is 10.
+- `width`: Sets the width of the game board in number of columns. Default is 20.
 
-## Appearance Customization
+## Initial Cursor Position
 
-EXtendedTETRIckS allows you to customize the game's appearance by modifying the following options:
+- `default_cursor`: Specifies the initial position of the cursor (falling piece) on the game board. It is a tuple in the format (row, column). Default is (0, int(width / 2 - 1)), which places the cursor at the top center of the board.
 
-- `title`: This option sets the title of the game window.
-- `bg`: This option determines the background color of the game area.
-- `fg`: This option sets the foreground color, which is the color of the falling pieces.
-- `font`: This option specifies the font used for displaying the game area. It is represented as a tuple containing the font family, size, and style (e.g., `("Courier New", "16", "bold")`).
+## Keyboard Controls
 
-## Board Size
+- `left_key`: Specifies the key used to move the falling piece to the left. Default is "Left".
+- `right_key`: Specifies the key used to move the falling piece to the right. Default is "Right".
+- `down_key`: Specifies the key used to move the falling piece downwards. Default is "Down".
+- `up_key`: Specifies the key used to rotate the falling piece. Default is "Up".
+- `left_offset`: Sets the number of columns the piece moves to the left with each key press. Default is 1.
+- `right_offset`: Sets the number of columns the piece moves to the right with each key press. Default is 1.
+- `down_offset`: Sets the number of rows the piece moves downwards with each key press. Default is 1.
 
-The size of the game board can be adjusted by changing the `height` and `width` options in `config.py`. These options control the number of rows and columns in the game area, respectively.
 
-## Controls
+## Levels and Difficulty
 
-EXtendedTETRIckS supports customizable keyboard controls for moving and rotating the falling pieces. You can modify the following options to change the key bindings:
+- `levels_dict`: A dictionary that defines the properties for each level of the game. Each level is represented by a key (e.g., "level1", "level2", etc.), and the corresponding values are dictionaries containing the following properties:
+  - `points_per_line`: The number of points awarded for clearing a single line in that level.
+  - `lines_to_beat`: The number of lines the player needs to clear to advance to the next level.
+  - `speed_percentage_change`: The percentage by which the falling speed of the pieces increases in that level.
+- `difficulty`: Sets the overall difficulty of the game. Default is "easy". Other possible values could be "medium", "hard" or "custom". Define the `custom_range` when using "custom" difficulty. 
 
-- `left_key`, `right_key`, `down_key`, `up_key`: These options set the keys used for moving the piece left, right, down, and rotating clockwise, respectively.
-- `left_offset`, `right_offset`, `down_offset`: These options determine the number of cells the piece moves in the respective direction when the corresponding key is pressed.
+## Game Control Flow
 
-## Difficulty and Levels
+- `pause_key`: Specifies the key used to pause and resume the game. Default is "p".
+- 'quit_key` : Quit the game. Defauly is "q"
+- `end_game_message`: Specifies the message displayed when the player beats the game. Default is "You Have beaten the game!".
+  
 
-The difficulty of the game can be set by modifying the `difficulty` option in `config.py`. Three difficulty levels are available: "easy", "medium", and "hard". Each difficulty level determines the range of extetrominoes that can appear in the game, with higher difficulties including more complex shapes.
+## Maximum Level
 
-The game also features multiple levels, each with increasing speed and scoring. The maximum level can be set with the `max_level` option in `config.py`. The scoring and speed increase for each level are defined in the `levels_dict` dictionary, where you can adjust the following parameters:
+- `max_level`: Sets the maximum level that the player can reach in the game. Default is 3.
 
-- `points_per_line`: The number of points awarded for clearing a single line.
-- `lines_to_beat`: The number of lines that need to be cleared to advance to the next level.
-- `speed_percentage_change`: The percentage by which the falling speed increases when advancing to the next level.
-
-## Pause Key
-
-The key used to pause and resume the game can be changed by modifying the `pause_key` option in `config.py`.
-
-## Initial Piece Position
-
-The initial position where new pieces appear can be adjusted by changing the `default_cursor` option in `config.py`. This option is represented as a tuple containing the row and column indices.
-
-## Game Over Message
-
-The message displayed when the game is over can be customized by modifying the `end_game_message` option in `config.py`.
+By modifying these configuration options, you can customize the Python Text Tetris game according to your preferences, such as changing the appearance, controls, difficulty, and gameplay mechanics.

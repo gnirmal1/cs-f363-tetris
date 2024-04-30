@@ -22,6 +22,7 @@ class Board(object):
         self.width = width
         self.height = height
         self.area = numpy.full_like([[False]], False, shape=(self.height, self.width))
+        self.ghost_area = numpy.full_like([[False]], False, shape=(self.height, self.width))
 
     def __str__(self):
         tempArea = ""
@@ -29,6 +30,8 @@ class Board(object):
             for col in range(self.width):
                 if self.area[row][col]:
                     tempArea = tempArea + "\N{BLACK LARGE SQUARE}|"  # was '\u25A1|'
+                elif self.ghost_area[row][col]:
+                    tempArea = tempArea + "\N{WHITE LARGE SQUARE}|"
                 else:
                     tempArea = tempArea + " |"
             tempArea = tempArea + "\n"
@@ -61,9 +64,10 @@ class Board(object):
 if (
     __name__ == "__main__"
 ):  # for testing. Requires some tetrominoes in allextetrominoes.py
+    from time import sleep, time
+
     from allextetrominoes import *
     from shape import Shape
-    from time import time, sleep
 
     this = Board(10, 10)
     this.insertShape(get_any_extetromino(), 5, 5)  # from allextetrominoes

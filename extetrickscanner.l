@@ -25,12 +25,14 @@ and	{ fprintf(stderr,"%d.",12); return AND; }
 not	{ fprintf(stderr,"%d.",13); return NOT; }
 neg	{	fprintf(stderr,"%d.",14); return NEG; }
 play	{ fprintf(stderr,"%d.",15); return PLAY; }
-[A-Z][A-Za-z0-9]* { yylval.symbol = NewSymbol(yytext,ID, 0); fprintf(stderr,"%d.",16); return ID; }
-[0-9][0-9]*		  { yylval.symbol = NewSymbol(yytext,NUM, 0); fprintf(stderr,"%d.",17); return NUM; }
-[0-9][0-9]*\.[0-9]+	  { yylval.symbol = NewSymbol(yytext,NUM, 1); fprintf(stderr,"%d.",17); return NUM; }
-#[\n\r]			{ fprintf(stderr,"%d.",18); return NEWLINE; }
-[ \t\n\r]*			  { fprintf(stderr,"%d.",19); /* Do nothing, drop them. */ }
-.                         { fprintf(stderr,"%d.",20); return *yytext; }
+[\n\r]			{ fprintf(stderr,"%d.",16); return NEWLINE; }
+["]([^"]|\\(.|\n))*["] { yylval.symbol = NewSymbol(yytext,STRING, 0); fprintf(stderr,"%d.",17); return STRING; }
+[A-Za-z][A-Za-z0-9_]* { yylval.symbol = NewSymbol(yytext,ID, 0); fprintf(stderr,"%d.",18); return ID; }
+[0-9][0-9]*		  { yylval.symbol = NewSymbol(yytext,NUM, 0); fprintf(stderr,"%d.",19); return NUM; }
+[0-9][0-9]*\.[0-9]+	  { yylval.symbol = NewSymbol(yytext,NUM, 1); fprintf(stderr,"%d.",20); return NUM; }
+[|][^\n]*[|]		{ yylval.symbol = NewSymbol(yytext,TUPLE, 0); fprintf(stderr,"%d.",17); return TUPLE; }
+[ \t\n\r]*			  { fprintf(stderr,"%d.",21); /* Do nothing, drop them. */ }
+.                         { fprintf(stderr,"%d.",22); return *yytext; }
 %%
 
 #ifdef STANDALONE_LEXER
@@ -39,4 +41,3 @@ int main(void)
 	while(yylex()!='q');
 	}
 #endif
-

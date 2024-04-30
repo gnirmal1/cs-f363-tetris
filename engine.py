@@ -1,11 +1,13 @@
 import tkinter as tk
-from tkinter import filedialog
-from board import Board
-from allextetrominoes import *
-from shape import Shape
-from time import time, sleep
 from copy import copy, deepcopy
+from time import sleep, time
+from tkinter import filedialog
+
 import config
+import themes
+from allextetrominoes import *
+from board import Board
+from shape import Shape
 
 
 class TetrisEngine:
@@ -17,6 +19,8 @@ class TetrisEngine:
 			self.extetromino_distribution = range(1, 17)
 		elif self.difficulty == "hard":
 			self.extetromino_distribution = range(1, 74)
+		elif self.difficulty == "custom":
+			self.extetromino_distribution = config.custom_range
 		else:
 			print("Invalid difficulty level. Exiting...")
 			exit()
@@ -25,14 +29,16 @@ class TetrisEngine:
 		self.window.title(config.title)  # Programmable, inconsequential
 		self.width = config.width  # Essential and programmable
 		self.height = config.height  # Essential and programmable
+
+		bg, fg, font = self.load_theme(config.theme)
 		self.text_area = tk.Text(  # Essential and partially programmable
 			self.window,  # fixed unless you populate more components
 			wrap=tk.CHAR,  # programmable, please find some way not to let it wrap
 			height=self.height,  # fixed
 			width=2 * self.width,  # fixed
-			bg=config.bg,  # programmable
-			fg=config.fg,  # programmable
-			font=config.font,  # programmable
+			bg=bg,  # programmable
+			fg=fg,  # programmable
+			font=font,  # programmable
 		)
 		self.text_area.pack(expand=tk.YES, fill=tk.BOTH)  # fixed
 		self.board = Board(width=self.width, height=self.height)  # fixed
@@ -45,7 +51,10 @@ class TetrisEngine:
 		self.window.bind(f"<{config.right_key}>", self.move_right)  # callback
 		self.window.bind("<space>", self.drop_piece)  # callback
 		self.window.bind(f"<{config.down_key}>", self.move_down_force)  # callback
-		self.window.bind(f'<{config.pause_key}>', self.toggle_pause_status) # callback
+		self.window.bind(f"<{config.pause_key}>", self.toggle_pause_status)  # callback
+		self.window.bind(
+			f"<{config.quit_key}>", self.quit_game
+		)  # Bind the 'q' key to the quit_game method
 
 		self.update_duration = 100  # More or less fixed
 		self.window.after(self.update_duration, lambda: self.update_step())  # callback
@@ -70,11 +79,16 @@ class TetrisEngine:
 		self.create_menu()
 		self.game_over_status = False  # fixed, only reversed at quitting.
 		self.deleted_lines = 0  # for scoring
-		self.score = tk.StringVar(self.window, "Lines Cleared: 0 | Level: 1")
+		self.score = tk.StringVar(self.window, "Total Score: 0 | Level: 1")
 		# for displaying the score
+		self.total_score = 0
 		self.scoreboard = tk.Label(self.window, textvariable=self.score)
 		self.scoreboard.pack()
 		self.window.mainloop()
+
+	def load_theme(self, theme_name):
+		theme = themes.themes.get(theme_name, themes.themes["default"])
+		return theme["bg"], theme["fg"], theme["font"]
 
 	def calculate_ghost_position(self):
 		ghost_cursor = self.cursor
@@ -91,12 +105,13 @@ class TetrisEngine:
 		piece = self.piece
 		ghost_cursor = self.calculate_ghost_position()
 
-		# Render the ghost piece with a lighter colour
 		for row in range(piece.matrix.shape[0]):
 			for column in range(piece.matrix.shape[1]):
 				if piece.matrix[row][column]:
 					# Set a lighter color or a different pattern for the ghost piece
-					area.area[row + ghost_cursor[0]][column + ghost_cursor[1]] = "ghost"
+					area.ghost_area[row + ghost_cursor[0]][
+						column + ghost_cursor[1]
+					] = True
 
 		# Render the actual falling piece
 		for row in range(piece.matrix.shape[0]):
@@ -162,8 +177,11 @@ class TetrisEngine:
 			if tobedeleted:
 				self.deleted_lines += len(tobedeleted)
 				self.lines_cleared += len(tobedeleted)
+				self.total_score += config.levels_dict[f"level{self.current_level}"][
+					0
+				] * len(tobedeleted)
 				self.score.set(
-					f"Lines Cleared: {self.deleted_lines} | Level: {self.current_level}"
+					f"Total Score: {self.total_score} | Level: {self.current_level}"
 				)
 				for row in reversed(tobedeleted):
 					for newrow in reversed(range(row)):
@@ -190,13 +208,12 @@ class TetrisEngine:
 			self.window.after(self.move_down_duration, lambda: self.move_down_step())
 
 	def check_level_up(self):
-		lines_per_level = 1  # Number of lines to clear per level, adjust as needed
-		if self.lines_cleared >= lines_per_level * self.current_level:
+		if self.lines_cleared >= config.levels_dict[f"level{self.current_level}"][1]:
 			if self.current_level < self.max_level:
 				self.current_level += 1
-				self.speed_up()
+				self.speed_up(config.levels_dict[f"level{self.current_level}"][2])
 				self.score.set(
-					f"Lines Cleared: {self.deleted_lines} | Level: {self.current_level}"
+					f"total score: {self.total_score} | Level: {self.current_level}"
 				)
 				print(f"Level Up! Current Level: {self.current_level}")
 			else:
@@ -210,8 +227,8 @@ class TetrisEngine:
 		self.text_area.insert(tk.END, self.render())
 		self.window.after(self.update_duration, lambda: self.update_step())
 
-	def speed_up(self):  # programmable
-		self.move_down_duration = int(numpy.floor(self.move_down_duration * 0.9))
+	def speed_up(self, percentage_change):  # programmable
+		self.move_down_duration = int(numpy.floor(self.move_down_duration * (1 - percentage_change / 100.0)))
 
 	def slow_down(self):  # programmable
 		self.move_down_duration = int(numpy.ceil(self.move_down_duration * 1.1))
@@ -320,11 +337,16 @@ class TetrisEngine:
 		"""Toggle the pause status of the game."""
 		self.pauseStatus = not self.pauseStatus
 		if self.pauseStatus:
-			self.text_area.insert(tk.END, f"\nGame Paused. Press '{config.pause_key}' to continue.")
+			self.text_area.insert(
+				tk.END, f"\nGame Paused. Press '{config.pause_key}' to continue."
+			)
 		else:
 			self.text_area.insert(tk.END, "\nGame Resumed.")
 			self.update_step()  # Resume game updates
 
+	def quit_game(self, event=None):
+		"""Handle the quit game operation."""
+		self.window.destroy()  # This will close the Tkinter window and quit the game
 
 	def end_game(self):
 		# Display the end game message
