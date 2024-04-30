@@ -69,7 +69,7 @@ class TetrisEngine:
 		self.text_area.insert(tk.END, self.render())
 		self.create_menu()
 		self.game_over_status = False  # fixed, only reversed at quitting.
-		self.deleted_lines = 0  # for scoring
+		self.total_score = 0  # for scoring
 		self.score = tk.StringVar(self.window, "Lines Cleared: 0 | Level: 1")
 		# for displaying the score
 		self.scoreboard = tk.Label(self.window, textvariable=self.score)
@@ -160,10 +160,10 @@ class TetrisEngine:
 				row for row in reversed(range(self.height)) if all(self.board.area[row])
 			]
 			if tobedeleted:
-				self.deleted_lines += len(tobedeleted)
 				self.lines_cleared += len(tobedeleted)
+				self.total_score += config.levels_dict[f"level{self.current_level}"]["points_per_line"]*len(tobedeleted)
 				self.score.set(
-					f"Lines Cleared: {self.deleted_lines} | Level: {self.current_level}"
+					f"Total Score: {self.total_score} | Level: {self.current_level}"
 				)
 				for row in reversed(tobedeleted):
 					for newrow in reversed(range(row)):
@@ -190,13 +190,12 @@ class TetrisEngine:
 			self.window.after(self.move_down_duration, lambda: self.move_down_step())
 
 	def check_level_up(self):
-		lines_per_level = 1  # Number of lines to clear per level, adjust as needed
-		if self.lines_cleared >= lines_per_level * self.current_level:
+		if self.lines_cleared >= config.levels_dict[f"level{self.current_level}"]["lines_to_beat"]:
 			if self.current_level < self.max_level:
 				self.current_level += 1
-				self.speed_up()
+				self.speed_up(config.levels_dict[f"level{self.current_level}"]["speed_percentage_change"])
 				self.score.set(
-					f"Lines Cleared: {self.deleted_lines} | Level: {self.current_level}"
+					f"total score: {self.total_score} | Level: {self.current_level}"
 				)
 				print(f"Level Up! Current Level: {self.current_level}")
 			else:
@@ -210,8 +209,8 @@ class TetrisEngine:
 		self.text_area.insert(tk.END, self.render())
 		self.window.after(self.update_duration, lambda: self.update_step())
 
-	def speed_up(self):  # programmable
-		self.move_down_duration = int(numpy.floor(self.move_down_duration * 0.9))
+	def speed_up(self, percentage_change):  # programmable
+		self.move_down_duration = int(numpy.floor(self.move_down_duration * (1 + percentage_change / 100.0)))
 
 	def slow_down(self):  # programmable
 		self.move_down_duration = int(numpy.ceil(self.move_down_duration * 1.1))
@@ -272,8 +271,8 @@ class TetrisEngine:
 		self.text_area.insert(tk.END, self.render())
 		self.cursor = self.default_cursor
 		self.move_down_duration = self.initial_move_down_duration
-		self.deleted_lines = 0
-		self.score.set("No. of Lines Cleared = " + str(self.deleted_lines))
+		self.total_score = 0
+		self.score.set("No. of Lines Cleared = " + str(self.total_score))
 		self.pauseStatus = False
 
 	def save_file(self):
