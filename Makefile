@@ -1,7 +1,7 @@
 build:
 	bison -d -r all a2version2.y ; flex extetrickscanner.l ;  gcc extetrickstype.c lex.yy.c a2version2.tab.c
 
-test:
+tests:
 	pip install -r requirements.txt
 	bison -d -r all a2version2.y ; flex extetrickscanner.l ;  gcc extetrickstype.c lex.yy.c a2version2.tab.c -o x2021A7PSXXXXG
 	cat game_default.py > game.py
@@ -17,4 +17,3 @@ test_no_bython:
 	./x2021A7PSXXXXG < input.tetris > game_temp.py
 	cat game_temp.py >> game.py
 	python3 engine.py
-	
