@@ -6,8 +6,23 @@
 
 Use the provided Makefile to run the game:
 
+- Since the code has Python dependencies, it is advisable to work inside a virtual environment for Python and install the required packages using the `requirements.txt` file.
+
+```bash
+python3 -m venv .venv # Create a virtual envirnment named `venv`
+source .venv/bin/activate # Activate the virtual environment
+```
+
 - Run `make test_no_bython` for basic tests if the code doesn't contain complex elements like loops, if statements, or custom functions.
 - Run `make tests` for comprehensive tests. This requires the [bython](https://github.com/mathialo/bython) library.
+
+### Disclaimer
+
+Note that this code was tested in an Arch Linux environment, with Python 3.12.3 and the latest version of the `tk` package (v8.6.14-2)installed.
+
+```bash
+sudo pacman -S tk
+```
 
 ## Customization Features
 
