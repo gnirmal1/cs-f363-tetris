@@ -3,7 +3,7 @@
 **EXtendedTETRIckS** is a highly customizable Tetris game implemented in Python. It allows users to tailor the game experience according to their preferences by modifying various game parameters through an input configuration file. This README provides an overview of the customization features and details the input format for the configuration file.
 
 ## Running the Code
-Run **make test_no_bython** if the input code does not contain any functions/loops/if statements. Otherwise run **make test_bython**. If the input defines uses loops/if statements or defines custom functions the compilation process requires the presence of bython library.
+Run **make test_no_bython** if the input code does not contain any functions/loops/if statements. Otherwise run **make tests**. If the input defines uses loops/if statements or defines custom functions the compilation process requires the presence of bython library.
 
 ## Customization Features
 
@@ -55,9 +55,8 @@ Section2 # This section is for functions
 Section3 # This section is for future extensions
 
 ```
-After the sections ensure the presence of a newline. Each parameter is specified on a new line, followed by an equal sign (=) and the desired value. The input file is divided into three sections: Section1, Section2, and Section3. Section1 contains the primary game configuration parameters, while Section 2 is used for function definitions and Section 3 is reserved for future extensions. Function definitions require the use of bython in the compilation process, so install it before running make test_bython. 
+After the sections ensure the presence of a newline. Each parameter is specified on a new line, followed by an equal sign (=) and the desired value. The input file is divided into three sections: Section1, Section2, and Section3. Section1 contains the primary game configuration parameters, while Section 2 is used for function definitions and Section 3 is reserved for future extensions. Function definitions require the use of bython in the compilation process, so install it before running make tests. 
 
 _Declaration_
 
 _This work was a collaboration between Nirmal Govindaraj (2021A7PS0441G), Yash Bhisikar (2021A7PS0483G), Siddhant Kulkarni (2021A7PS2606G), Valeti Kumarakrishna (2021A7PS2617G), Jahnavi Rishikesh (2021A7PS1474G), Joel Tony (2021A7PS2077G), Arnav Guta (2021A7PS2092G), and Avaneesh Gujran (2021A7PS0010G) as part of CS F363 - Compiler Construction._
-
