@@ -3,7 +3,13 @@ from copy import copy, deepcopy
 from time import sleep, time
 from tkinter import filedialog
 
-import game
+import os
+import sys
+
+# Add the parent directory of the current file to sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from configs import game
 import themes
 from allextetrominoes import *
 from board import Board

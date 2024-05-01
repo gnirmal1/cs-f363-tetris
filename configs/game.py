@@ -45,4 +45,3 @@ default_cursor=(0, 10)
 width=20  
 height=10  
 title="Python Text Tetris"  
-
