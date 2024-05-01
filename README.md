@@ -3,6 +3,7 @@
 **EXtendedTETRIckS** is a highly customizable Tetris game implemented in Python. It allows users to tailor the game experience according to their preferences by modifying various game parameters through an input configuration file. This README provides an overview of the customization features and details the input format for the configuration file.
 
 ## Running the Code
+
 Run **make test_no_bython** if the input code does not contain any functions/loops/if statements. Otherwise run **make test_bython**. If the input defines uses loops/if statements or defines custom functions the compilation process requires the presence of bython library.
 
 ## Customization Features
@@ -53,6 +54,10 @@ max_level = 3 # Sets the maximum level in the game
 Section2 # This section is for functions
 
 Section3 # This section is for future extensions
-
 ```
+
 After the sections ensure the presence of a newline. Each parameter is specified on a new line, followed by an equal sign (=) and the desired value. The input file is divided into three sections: Section1, Section2, and Section3. Section1 contains the primary game configuration parameters, while Section 2 is used for function definitions and Section 3 is reserved for future extensions. Function definitions require the use of bython in the compilation process, so install it before running make test_bython. 
+
+## Declaration
+
+This work was done collaboratively by Arnav, Avaneesh, Jahnavi, Joel, Kumarakrishna, Nirmal, Siddhant and Yash. The project was completed as a part of the course CS F363 - Compiler Construction at BITS Pilani, Goa Campus.
