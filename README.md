@@ -38,7 +38,8 @@ The game configuration is defined in an input file named `input.tetris`. The fil
 Section1
 title = "My Custom Tetris" # Sets the title of the game window
 height = 15 # Sets the height of the game board
-theme = "hecker" # sets the theme(background colour, foreground colour, font) Choose from the list of theme's provided in themes.py
+theme = "hecker" # sets the theme(background colour, foreground colour, font)
+  Choose from the list of theme's provided in themes.py or choose to set a custom theme and specify bg and fg
 bg = "black" # if theme is set to custom colour specified for bg is used as background colour
 fg = "blue" # if theme is set to custom colour specified for fg is used as foreground colour
 width = 10 # Sets the width of the game board
@@ -58,7 +59,8 @@ end_game_message = "Congratulations! You've mastered the game!" # Sets the messa
 level1 = (10, 1, 5) # Sets the parameters for level 1 (score_to_advance, level_number, speed_increase_percentage)
 level2 = (20, 2, 10) # Sets the parameters for level 2
 level3 = (30, 3, 15) # Sets the parameters for level 3
-difficulty = "medium" # Sets the difficulty level (easy, medium, hard, or custom). With increasing difficulty more shapes occur. In Custom difficulty custom range is used to select tetrominoe shapes.
+difficulty = "medium" # Sets the difficulty level (easy, medium, hard, or custom).
+    With increasing difficulty more shapes occur. In Custom difficulty custom range is used to select tetrominoe shapes.
 pause_key = "p" # Sets the key for pausing/resuming the game
 max_level = 3 # Sets the maximum level in the game
 Section2 # This section is for functions
