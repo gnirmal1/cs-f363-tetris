@@ -52,9 +52,9 @@ Customize the message displayed when the player reaches the maximum level and be
 Set the maximum level in the game using the `max_level` parameter.
 
 ## Salient Display Features
-###Shadow
+### Shadow
   The game displays a shadow for the falling pieces to show where they would end up on the current trajectory.
-###Next Piece
+### Next Piece
   Below the game board, the current level, the lines cleared (score), and the next piece to follow are displayed.
 
 ## Input Format
