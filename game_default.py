@@ -1,5 +1,5 @@
 title = "Python Text Tetris"
-theme = 'light'
+theme = 'dark'
 height = 10
 width = 20
 default_cursor = (0, 10)

@@ -16,7 +16,6 @@
 
 import numpy
 
-
 class Shape(object):
     def __init__(self, mat=numpy.array([[True, True, True, True]])):
         if str(type(mat)) == "<class 'numpy.ndarray'>":
@@ -26,6 +25,12 @@ class Shape(object):
                 "Expected matrix, found " + str(mat) + " a " + str(type(mat))
             )
 
+    def draw(self, canvas, x, y, fg, bg, size=20):
+        for i in range(len(self.matrix)):
+            for j in range(len(self.matrix[0])):
+                if self.matrix[i][j] == 1:
+                    canvas.create_rectangle(size + j * size, size + i * size, size + (j + 1) * size, size + (i + 1) * size, fill=bg, outline=fg)
+                    
     def fliplr(self):
         for row in range(self.matrix.shape[0]):
             self.matrix[row] = [

@@ -31,6 +31,9 @@ class TetrisEngine:
 		else:
 			bg, fg, font = self.load_theme(game.theme)
 		
+		self.bg = bg
+		self.fg = fg
+		self.font = font
 		self.rotate_counter_limit = game.rotate_counter_limit
 		self.rotate_counter = 0
 		self.window = tk.Tk()  # fixed
@@ -81,7 +84,13 @@ class TetrisEngine:
 		self.max_level = game.max_level
 		self.current_level = 1
 		self.lines_cleared = 0
+		self.next_piece = Shape(get_any_extetromino(self.extetromino_distribution, game.freq_dist))
+		self.next_piece_label = tk.Label(self.window, text="Next Piece", bg=bg, fg=fg, font=font)
+		self.next_piece_label.pack()
+		self.next_piece_canvas = tk.Canvas(self.window, width=100, height=100, bg=bg)
+		self.next_piece_canvas.pack()
 		self.new_piece()  # This sequence is not much programmable.
+		self.update_next_piece_canvas()
 		self.text_area.insert(tk.END, self.render())
 		self.create_menu()
 		self.game_over_status = False  # fixed, only reversed at quitting.
@@ -103,6 +112,11 @@ class TetrisEngine:
 	def load_theme(self, theme_name):
 		theme = themes.themes.get(theme_name, themes.themes['default'])
 		return theme['bg'], theme['fg'], theme['font']
+	
+	def update_next_piece_canvas(self):
+		self.next_piece_canvas.delete("all")
+		next_piece_shape = self.next_piece
+		next_piece_shape.draw(self.next_piece_canvas, 50, 50, self.fg, self.bg)
 
 	# Each of the methods below are programmable (replaceable) -- but give in the documentation
 	# what the game programmer has to provide -- the functionality, role, the entagling of concerns.
@@ -282,12 +296,17 @@ class TetrisEngine:
 		extetris_menu.add_command(label="About", command=self.extetricks_help)
 
 	def new_piece(self, piece=None):
+		tmp = self.next_piece
+
 		if piece == None:
-			self.piece = Shape(get_any_extetromino(self.extetromino_distribution, game.freq_dist))
+			self.next_piece = Shape(get_any_extetromino(self.extetromino_distribution, game.freq_dist))
 		else:
-			self.piece = piece
+			self.next_piece = piece 
+
+		self.piece = tmp
 		self.rotate_counter = 0
 		self.rotate_limit_label.config(text="")
+		self.update_next_piece_canvas()
 		self.cursor = self.default_cursor
 
 	def new_game(self):

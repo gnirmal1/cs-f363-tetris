@@ -1,5 +1,5 @@
 title = "Python Text Tetris"
-theme = 'light'
+theme = 'dark'
 height = 10
 width = 20
 default_cursor = (0, 10)
@@ -25,7 +25,7 @@ Someothername=10
 Somename=0  
 max_level=3  
 pause_key="p"  
-difficulty="easy"  
+difficulty="hard"  
 levels_dict["level3"]=(30, 3, 20)
 levels_dict["level2"]=(20, 2, 10)
 levels_dict["level1"]=(10, 1, 5)
