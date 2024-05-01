@@ -134,7 +134,7 @@ class TetrisEngine:
 	def rotate_CW(self, event):
 		if self.pauseStatus:
 			return
-		if self.rotate_counter_limit != -1 and self.rotate_counter > self.rotate_counter_limit:
+		if self.rotate_counter_limit != -1 and self.rotate_counter >= self.rotate_counter_limit:
 			self.rotate_limit_label.config(text="Rotate limit reached!", fg="red")
 			return False
 
