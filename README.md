@@ -57,6 +57,6 @@ Section3 # This section is for future extensions
 ```
 After the sections ensure the presence of a newline. Each parameter is specified on a new line, followed by an equal sign (=) and the desired value. The input file is divided into three sections: Section1, Section2, and Section3. Section1 contains the primary game configuration parameters, while Section 2 is used for function definitions and Section 3 is reserved for future extensions. Function definitions require the use of bython in the compilation process, so install it before running make test_bython. 
 
-Declaration
+_Declaration
 
 This work was a collaboration between Nirmal Govindaraj(2021A7PS0441G), Yash Bhisikar(2021A7PS0483G), Siddhant Kulkarni(2021A7PS2606G), Valeti Kumarakrishna(2021A7PS2617G), Jahnavi Rishikesh(2021A7PS1474G), Joel Tony(2021A7PS2077G), Arnav Guta(2021A7PS2092G) and Avaneesh Gujran(2021A7PS0010G) as part of CS F363 - Compiler Construction.
