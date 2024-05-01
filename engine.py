@@ -24,8 +24,12 @@ class TetrisEngine:
 		else:
 			print("Invalid difficulty level. Exiting...")
 			exit()
-
-		bg, fg, font = self.load_theme(game.theme)
+		if game.theme == "custom":
+			bg=game.bg
+			fg=game.fg
+			font=("Courier New", "16", "bold")
+		else:
+			bg, fg, font = self.load_theme(game.theme)
 		self.window = tk.Tk()  # fixed
 		self.window.title(game.title)  # Programmable, inconsequential
 		self.width = game.width  # Essential and programmable
@@ -269,7 +273,7 @@ class TetrisEngine:
 
 	def new_piece(self, piece=None):
 		if piece == None:
-			self.piece = Shape(get_any_extetromino(self.extetromino_distribution))
+			self.piece = Shape(get_any_extetromino(self.extetromino_distribution, game.freq_dist))
 		else:
 			self.piece = piece
 		self.cursor = self.default_cursor
