@@ -36,6 +36,9 @@ Define the score to advance through levels and the speedup by specifying the fol
 
 For example, `level1 = (10, 1, 5)` sets the parameters for level 1, where the player needs to score 10 points to advance to the next level, and the falling speed increases by 5% at this level.
 
+### Maximum Level
+Set the maximum level in the game using the `max_level` parameter.
+
 ### Difficulty
 Allows you to choose between `easy ` `medium` and `hard`. With increasing difficulty the tetrominoe shapes increase increasing the difficulty. You can also set it to `custom` and specify the range of shapes you want to use through `custom_range`.
 
@@ -50,9 +53,6 @@ The `rotate_counter_limit` parameter sets a limit on the number of rotations tha
 
 ### End Game Message
 Customize the message displayed when the player reaches the maximum level and beats the game by modifying the `end_game_message` parameter.
-
-### Maximum Level
-Set the maximum level in the game using the `max_level` parameter.
 
 ## Salient Display Features
 ### Shadow
