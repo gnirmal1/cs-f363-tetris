@@ -1,50 +1,48 @@
-The input file is passed to the compiler which generates an equivalent config file. The config file is then used to customise the game by passing suitable inputs to the engine functions defined in engine.py
+# EXtendedTETRIckS - A Customizable Tetris Game
 
+**EXtendedTETRIckS** is a highly customizable Tetris game implemented in Python. It allows users to tailor the game experience according to their preferences by modifying various game parameters through an input configuration file. This README provides an overview of the customization features and details the input format for the configuration file.
 
-## Config Options
+## Customization Features
+
+- **Game Title**: Customize the title displayed in the game window.
+- **Theme**: Choose from a variety of predefined themes or create your own by specifying the background color, foreground color, and font.
+- **Board Size**: Adjust the height and width of the game board to suit your preferences.
+- **Starting Cursor Position**: Set the initial position where the falling pieces will appear.
+- **Key Bindings**: Remap the keys used for moving the falling pieces left, right, down, rotating clockwise, pausing/resuming the game, and quitting the game.
+- **Movement Offsets**: Customize the number of cells the falling piece moves in each direction.
+- **Difficulty Levels**: Define multiple difficulty levels by specifying the score required to advance to the next level, the speed increase percentage, and the extetromino distribution range.
+- **Custom Extetromino Range**: Choose the range of extetromino shapes to be included in the game, allowing for different levels of complexity.
+- **Pause Key**: Assign a key to pause and resume the game.
+- **Quit Key**: Set a key to quit the game gracefully.
+- **End Game Message**: Customize the message displayed when the player reaches the maximum level and beats the game.
 
 ## Extetromino Distribution
 
-The `extetromino_distribution` option in `config.py` determines the range of extetrominoes (generalized tetrominoes) that can appear in the game. By default, it is set to `range(1, 2)`, which means only the classic tetrominoes (I, O, T, J, L, S, Z) will be included.
+One of the unique features of **EXtendedTETRIckS** is the ability to include extetromino shapes, which are geometric shapes composed of multiple conjoined tetromino blocks. The game allows you to specify the range of extetromino shapes to be included, providing an additional layer of complexity and challenge.
 
-However, you can explore a wider range of extetrominoes by adjusting this option. For example, setting `extetromino_distribution = range(1, 8)` will include all one-sided extetrominoes, while `extetromino_distribution = range(1, 74)` will include all free extetrominoes, offering a significantly more challenging gameplay experience.
+## Input Format
 
-## Appearance Customization
+The game configuration is defined in an input file named `input.tetris`. The file should follow a specific format to ensure proper parsing and game customization. Here's an example of the input format:
 
-EXtendedTETRIckS allows you to customize the game's appearance by modifying the following options:
-
-- `title`: This option sets the title of the game window.
-- `theme`: Allows you to choose a theme for the game, pick between `light` and `dark`
-
-## Board Size
-
-The size of the game board can be adjusted by changing the `height` and `width` options in `config.py`. These options control the number of rows and columns in the game area, respectively.
-
-## Controls
-
-EXtendedTETRIckS supports customizable keyboard controls for moving and rotating the falling pieces. You can modify the following options to change the key bindings:
-
-- `left_key`, `right_key`, `down_key`, `up_key`: These options set the keys used for moving the piece left, right, down, and rotating clockwise, respectively.
-- `left_offset`, `right_offset`, `down_offset`: These options determine the number of cells the piece moves in the respective direction when the corresponding key is pressed.
-
-## Difficulty and Levels
-
-The difficulty of the game can be set by modifying the `difficulty` option in `config.py`. Three difficulty levels are available: "easy", "medium", and "hard". Each difficulty level determines the range of extetrominoes that can appear in the game, with higher difficulties including more complex shapes.
-
-The game also features multiple levels, each with increasing speed and scoring. The maximum level can be set with the `max_level` option in `config.py`. The scoring and speed increase for each level are defined in the `levels_dict` dictionary, where you can adjust the following parameters:
-
-- `points_per_line`: The number of points awarded for clearing a single line.
-- `lines_to_beat`: The number of lines that need to be cleared to advance to the next level.
-- `speed_percentage_change`: The percentage by which the falling speed increases when advancing to the next level.
-
-## Pause Key
-
-The key used to pause and resume the game can be changed by modifying the `pause_key` option in `config.py`.
-
-## Initial Piece Position
-
-The initial position where new pieces appear can be adjusted by changing the `default_cursor` option in `config.py`. This option is represented as a tuple containing the row and column indices.
-
-## Game Over Message
-
-The message displayed when the game is over can be customized by modifying the `end_game_message` option in `config.py`.
+```plaintext
+Section1
+title = "My Custom Tetris" # Sets the title of the game window
+height = 15 # Sets the height of the game board
+width = 10 # Sets the width of the game board
+default_cursor = (2, 5) # Sets the initial position of the falling piece (row, column)
+left_key = "a" # Sets the key for moving the piece left
+right_key = "d" # Sets the key for moving the piece right
+down_key = "s" # Sets the key for moving the piece down
+up_key = "w" # Sets the key for rotating the piece clockwise
+left_offset = 2 # Sets the number of cells the piece moves to the left
+right_offset = 2 # Sets the number of cells the piece moves to the right
+down_offset = 2 # Sets the number of cells the piece moves down
+custom_range = (1, 10) # Sets the range of extetromino shapes to include (start, end)
+quit_key = "q" # Sets the key for quitting the game
+end_game_message = "Congratulations! You've mastered the game!" # Sets the message displayed when the game is beaten
+level1 = (10, 1, 5) # Sets the parameters for level 1 (score_to_advance, level_number, speed_increase_percentage)
+level2 = (20, 2, 10) # Sets the parameters for level 2
+level3 = (30, 3, 15) # Sets the parameters for level 3
+difficulty = "medium" # Sets the difficulty level (easy, medium, hard, or custom)
+pause_key = "p" # Sets the key for pausing/resuming the game
+max_level = 3 # Sets the maximum level in the game
