@@ -557,11 +557,11 @@ static const yytype_int8 yytranslate[] =
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    38,    38,    41,    56,    59,    60,    68,    71,    75,
-      78,    84,    87,    92,    95,    98,   103,   105,   109,   114,
-     117,   120,   130,   135,   139,   142,   145,   148,   151,   153,
-     155,   157,   159,   162,   165,   170,   173,   176,   179,   184,
-     186
+       0,    38,    38,    41,    61,    64,    65,    73,    76,    80,
+      83,    89,    92,    97,   100,   103,   108,   110,   114,   119,
+     122,   125,   135,   140,   144,   147,   150,   153,   156,   158,
+     160,   162,   164,   167,   170,   175,   178,   181,   184,   189,
+     191
 };
 #endif
 
@@ -1196,27 +1196,32 @@ yyreduce:
 										sscanf((yyvsp[-2].id), "|%d,%d|", &x, &y);
 										printf("default_cursor=(%d, %d)\n", x, y); 
 									}
+									else if(strcmp((yyvsp[-4].symbol)->literalName, "custom_range") == 0){
+										int l, r;
+										sscanf((yyvsp[-2].id), "|%d,%d|", &l, &r);
+										printf("custom_range=range(%d, %d)\n", l, r); 
+									}
 									else{
 									printf("%s=%s\n", (yyvsp[-4].symbol)->literalName, (yyvsp[-2].id));
 									}
 }
-#line 1204 "a2version2.tab.c"
+#line 1209 "a2version2.tab.c"
     break;
 
   case 4: /* PRIMITIVE: %empty  */
-#line 56 "a2version2.y"
+#line 61 "a2version2.y"
                                           { }
-#line 1210 "a2version2.tab.c"
+#line 1215 "a2version2.tab.c"
     break;
 
   case 5: /* ENGINE: '[' PLAY ']'  */
-#line 59 "a2version2.y"
+#line 64 "a2version2.y"
                       { printf("play()\n"); }
-#line 1216 "a2version2.tab.c"
+#line 1221 "a2version2.tab.c"
     break;
 
   case 6: /* ENGINE: '[' PLAY WITH PARAM PARAMLIST ']'  */
-#line 60 "a2version2.y"
+#line 65 "a2version2.y"
                                                              { 
 				if(strlen((yyvsp[-1].id)) != 0){
 					printf("play(%s,%s)\n", (yyvsp[-2].id), (yyvsp[-1].id)); 
@@ -1225,119 +1230,119 @@ yyreduce:
 					printf("play(%s)\n", (yyvsp[-2].id));
 				}
 			 }
-#line 1229 "a2version2.tab.c"
+#line 1234 "a2version2.tab.c"
     break;
 
   case 7: /* ENGINE: %empty  */
-#line 68 "a2version2.y"
+#line 73 "a2version2.y"
                            {}
-#line 1235 "a2version2.tab.c"
+#line 1240 "a2version2.tab.c"
     break;
 
   case 8: /* FUNCTIONS: FUNCTION NEWLINE FUNCTIONS  */
-#line 71 "a2version2.y"
+#line 76 "a2version2.y"
                                        { printf("%s\n%s", (yyvsp[-2].id), (yyvsp[0].id));
 										(yyval.id) = malloc(STRLEN);
 											sprintf((yyval.id), "%s\n%s", (yyvsp[-2].id), (yyvsp[0].id));
 										}
-#line 1244 "a2version2.tab.c"
+#line 1249 "a2version2.tab.c"
     break;
 
   case 9: /* FUNCTIONS: %empty  */
-#line 75 "a2version2.y"
+#line 80 "a2version2.y"
                                           { (yyval.id) = malloc(STRLEN); }
-#line 1250 "a2version2.tab.c"
+#line 1255 "a2version2.tab.c"
     break;
 
   case 10: /* FUNCTION: '{' ID BODY '}'  */
-#line 78 "a2version2.y"
+#line 83 "a2version2.y"
                            {
 							(yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "def %s(){\n%s\n}", (yyvsp[-2].symbol)->literalName, (yyvsp[-1].id));
 							}
-#line 1259 "a2version2.tab.c"
+#line 1264 "a2version2.tab.c"
     break;
 
   case 11: /* BODY: STATEMENT BODY  */
-#line 84 "a2version2.y"
+#line 89 "a2version2.y"
                       { (yyval.id) = malloc(STRLEN);
 						sprintf((yyval.id), "%s\n%s", (yyvsp[-1].id), (yyvsp[0].id));
 					}
-#line 1267 "a2version2.tab.c"
+#line 1272 "a2version2.tab.c"
     break;
 
   case 12: /* BODY: STATEMENT  */
-#line 87 "a2version2.y"
+#line 92 "a2version2.y"
                              { (yyval.id) = malloc(STRLEN);
 						sprintf((yyval.id), "%s", (yyvsp[0].id));
 					}
-#line 1275 "a2version2.tab.c"
+#line 1280 "a2version2.tab.c"
     break;
 
   case 13: /* STATEMENT: IFSTATEMENT  */
-#line 92 "a2version2.y"
+#line 97 "a2version2.y"
                         { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "%s", (yyvsp[0].id));
 						}
-#line 1283 "a2version2.tab.c"
+#line 1288 "a2version2.tab.c"
     break;
 
   case 14: /* STATEMENT: WHILELOOP  */
-#line 95 "a2version2.y"
+#line 100 "a2version2.y"
                                                     { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "%s", (yyvsp[0].id));
 						}
-#line 1291 "a2version2.tab.c"
+#line 1296 "a2version2.tab.c"
     break;
 
   case 15: /* STATEMENT: ID '=' EXPR  */
-#line 98 "a2version2.y"
+#line 103 "a2version2.y"
                                                       { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "%s=%s", (yyvsp[-2].symbol)->literalName, (yyvsp[0].id));
 						}
-#line 1299 "a2version2.tab.c"
+#line 1304 "a2version2.tab.c"
     break;
 
   case 16: /* IFSTATEMENT: IF '(' EXPR ')' THEN STATEMENT END  */
-#line 103 "a2version2.y"
+#line 108 "a2version2.y"
                                                  { (yyval.id) = malloc(STRLEN);
 						sprintf((yyval.id), "if %s{\n%s\n}", (yyvsp[-4].id), (yyvsp[-1].id));}
-#line 1306 "a2version2.tab.c"
+#line 1311 "a2version2.tab.c"
     break;
 
   case 17: /* IFSTATEMENT: IF '(' EXPR ')' THEN STATEMENT ELSE STATEMENT END  */
-#line 105 "a2version2.y"
+#line 110 "a2version2.y"
                                                                                                     { (yyval.id) = malloc(STRLEN);
 																			sprintf((yyval.id), "if %s{\n%s\n}\nelse{\n%s\n}", (yyvsp[-6].id), (yyvsp[-3].id), (yyvsp[-1].id));}
-#line 1313 "a2version2.tab.c"
+#line 1318 "a2version2.tab.c"
     break;
 
   case 18: /* WHILELOOP: WHILE '(' EXPR ')' STATEMENT END  */
-#line 109 "a2version2.y"
+#line 114 "a2version2.y"
                                              { (yyval.id) = malloc(STRLEN);
 						sprintf((yyval.id), "while %s{\n%s\n}", (yyvsp[-3].id), (yyvsp[-1].id));
 						}
-#line 1321 "a2version2.tab.c"
+#line 1326 "a2version2.tab.c"
     break;
 
   case 19: /* EXPR: ARITHLOGIC  */
-#line 114 "a2version2.y"
+#line 119 "a2version2.y"
                   { (yyval.id) = malloc(STRLEN);
 					sprintf((yyval.id), "%s", (yyvsp[0].id));
 				}
-#line 1329 "a2version2.tab.c"
+#line 1334 "a2version2.tab.c"
     break;
 
   case 20: /* EXPR: '[' CALL ID ']'  */
-#line 117 "a2version2.y"
+#line 122 "a2version2.y"
                                    { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "%s()", (yyvsp[-1].symbol)->literalName);
 						}
-#line 1337 "a2version2.tab.c"
+#line 1342 "a2version2.tab.c"
     break;
 
   case 21: /* EXPR: '[' CALL ID WITH PARAM PARAMLIST ']'  */
-#line 120 "a2version2.y"
+#line 125 "a2version2.y"
                                                         { (yyval.id) = malloc(STRLEN);
 							if(strlen((yyvsp[-1].id)) != 0){
 								sprintf((yyval.id), "%s(%s,%s)", (yyvsp[-4].symbol)->literalName, (yyvsp[-2].id), (yyvsp[-1].id));
@@ -1346,151 +1351,151 @@ yyreduce:
 								sprintf((yyval.id), "%s(%s)", (yyvsp[-4].symbol)->literalName, (yyvsp[-2].id));
 							}
 						}
-#line 1350 "a2version2.tab.c"
+#line 1355 "a2version2.tab.c"
     break;
 
   case 22: /* ARITHLOGIC: TERM ARITH1  */
-#line 130 "a2version2.y"
+#line 135 "a2version2.y"
                          { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "%s %s", (yyvsp[-1].id), (yyvsp[0].id));
 						}
-#line 1358 "a2version2.tab.c"
+#line 1363 "a2version2.tab.c"
     break;
 
   case 23: /* TERM: FACTOR TERM1  */
-#line 135 "a2version2.y"
+#line 140 "a2version2.y"
                     { (yyval.id) = malloc(STRLEN);
 						sprintf((yyval.id), "%s %s", (yyvsp[-1].id), (yyvsp[0].id));}
-#line 1365 "a2version2.tab.c"
+#line 1370 "a2version2.tab.c"
     break;
 
   case 24: /* ARITH1: '+' TERM ARITH1  */
-#line 139 "a2version2.y"
+#line 144 "a2version2.y"
                          { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "+ %s %s", (yyvsp[-1].id), (yyvsp[0].id));
 						}
-#line 1373 "a2version2.tab.c"
+#line 1378 "a2version2.tab.c"
     break;
 
   case 25: /* ARITH1: '-' TERM ARITH1  */
-#line 142 "a2version2.y"
+#line 147 "a2version2.y"
                                            { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "- %s %s", (yyvsp[-1].id), (yyvsp[0].id));
 						}
-#line 1381 "a2version2.tab.c"
+#line 1386 "a2version2.tab.c"
     break;
 
   case 26: /* ARITH1: OR TERM ARITH1  */
-#line 145 "a2version2.y"
+#line 150 "a2version2.y"
                                           { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "or %s %s", (yyvsp[-1].id), (yyvsp[0].id));
 						}
-#line 1389 "a2version2.tab.c"
+#line 1394 "a2version2.tab.c"
     break;
 
   case 27: /* ARITH1: %empty  */
-#line 148 "a2version2.y"
+#line 153 "a2version2.y"
                            { (yyval.id) = malloc(STRLEN);}
-#line 1395 "a2version2.tab.c"
+#line 1400 "a2version2.tab.c"
     break;
 
   case 28: /* FACTOR: ID  */
-#line 151 "a2version2.y"
+#line 156 "a2version2.y"
             { (yyval.id) = malloc(STRLEN);
 				sprintf((yyval.id), "%s", (yyvsp[0].symbol)->literalName);}
-#line 1402 "a2version2.tab.c"
+#line 1407 "a2version2.tab.c"
     break;
 
   case 29: /* FACTOR: STRING  */
-#line 153 "a2version2.y"
+#line 158 "a2version2.y"
                                  { (yyval.id) = malloc(STRLEN);
 				sprintf((yyval.id), "%s", (yyvsp[0].symbol)->literalName);}
-#line 1409 "a2version2.tab.c"
+#line 1414 "a2version2.tab.c"
     break;
 
   case 30: /* FACTOR: TUPLE  */
-#line 155 "a2version2.y"
+#line 160 "a2version2.y"
                                 { (yyval.id) = malloc(STRLEN);
 				sprintf((yyval.id), "%s", (yyvsp[0].symbol)->literalName);}
-#line 1416 "a2version2.tab.c"
+#line 1421 "a2version2.tab.c"
     break;
 
   case 31: /* FACTOR: NUM  */
-#line 157 "a2version2.y"
+#line 162 "a2version2.y"
                                { (yyval.id) = malloc(STRLEN);
 				sprintf((yyval.id), "%s", (yyvsp[0].symbol)->literalName);}
-#line 1423 "a2version2.tab.c"
+#line 1428 "a2version2.tab.c"
     break;
 
   case 32: /* FACTOR: '(' EXPR ')'  */
-#line 159 "a2version2.y"
+#line 164 "a2version2.y"
                                         { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "(%s)", (yyvsp[-1].id));
 				}
-#line 1431 "a2version2.tab.c"
+#line 1436 "a2version2.tab.c"
     break;
 
   case 33: /* FACTOR: '(' NEG EXPR ')'  */
-#line 162 "a2version2.y"
+#line 167 "a2version2.y"
                                             { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "(not %s)", (yyvsp[-1].id));
 				}
-#line 1439 "a2version2.tab.c"
+#line 1444 "a2version2.tab.c"
     break;
 
   case 34: /* FACTOR: '(' NOT EXPR ')'  */
-#line 165 "a2version2.y"
+#line 170 "a2version2.y"
                                             { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "(~ %s)", (yyvsp[-1].id));
 				}
-#line 1447 "a2version2.tab.c"
+#line 1452 "a2version2.tab.c"
     break;
 
   case 35: /* TERM1: '*' FACTOR TERM1  */
-#line 170 "a2version2.y"
+#line 175 "a2version2.y"
                          { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "* %s %s", (yyvsp[-1].id), (yyvsp[0].id));
 						}
-#line 1455 "a2version2.tab.c"
+#line 1460 "a2version2.tab.c"
     break;
 
   case 36: /* TERM1: AND FACTOR TERM1  */
-#line 173 "a2version2.y"
+#line 178 "a2version2.y"
                                            { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "and %s %s", (yyvsp[-1].id), (yyvsp[0].id));
 						}
-#line 1463 "a2version2.tab.c"
+#line 1468 "a2version2.tab.c"
     break;
 
   case 37: /* TERM1: %empty  */
-#line 176 "a2version2.y"
+#line 181 "a2version2.y"
                           { (yyval.id) = malloc(STRLEN);}
-#line 1469 "a2version2.tab.c"
+#line 1474 "a2version2.tab.c"
     break;
 
   case 38: /* PARAM: ID '=' EXPR  */
-#line 179 "a2version2.y"
+#line 184 "a2version2.y"
                     { (yyval.id) = malloc(STRLEN);
 						sprintf((yyval.id), "%s=%s", (yyvsp[-2].symbol)->literalName, (yyvsp[0].id));
 					}
-#line 1477 "a2version2.tab.c"
+#line 1482 "a2version2.tab.c"
     break;
 
   case 39: /* PARAMLIST: PARAM PARAMLIST  */
-#line 184 "a2version2.y"
+#line 189 "a2version2.y"
                             { (yyval.id) = malloc(STRLEN);
 							sprintf((yyval.id), "%s,%s", (yyvsp[-1].id), (yyvsp[0].id)); }
-#line 1484 "a2version2.tab.c"
+#line 1489 "a2version2.tab.c"
     break;
 
   case 40: /* PARAMLIST: %empty  */
-#line 186 "a2version2.y"
+#line 191 "a2version2.y"
                                           { (yyval.id) = malloc(STRLEN); }
-#line 1490 "a2version2.tab.c"
+#line 1495 "a2version2.tab.c"
     break;
 
 
-#line 1494 "a2version2.tab.c"
+#line 1499 "a2version2.tab.c"
 
       default: break;
     }
@@ -1683,7 +1688,7 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 188 "a2version2.y"
+#line 193 "a2version2.y"
 
 
 int main(int argc, char *argv[])

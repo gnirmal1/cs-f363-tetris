@@ -22,6 +22,7 @@ class Board(object):
         self.width = width
         self.height = height
         self.area = numpy.full_like([[False]], False, shape=(self.height, self.width))
+        self.ghost_area = numpy.full_like([[False]], False, shape=(self.height, self.width))
 
     def __str__(self):
         tempArea = ""
@@ -29,6 +30,8 @@ class Board(object):
             for col in range(self.width):
                 if self.area[row][col]:
                     tempArea = tempArea + "\N{BLACK LARGE SQUARE}|"  # was '\u25A1|'
+                elif self.ghost_area[row][col]:
+                    tempArea = tempArea + "\N{WHITE LARGE SQUARE}|"
                 else:
                     tempArea = tempArea + " |"
             tempArea = tempArea + "\n"

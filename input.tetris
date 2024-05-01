@@ -1,6 +1,5 @@
 Section1
 title = "Python Text Tetris"
-theme = ""
 height = 10
 width = 20
 default_cursor = |0,10|
@@ -11,6 +10,8 @@ up_key = "Up"
 left_offset = 1
 right_offset = 1
 down_offset = 1
+custom_range = |1,2|
+quit_key = "q"
 end_game_message = "You Have beaten the game!"
 level1 = |10,1,5|
 level2 = |20,2,10|

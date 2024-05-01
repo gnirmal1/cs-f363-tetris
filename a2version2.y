@@ -49,6 +49,11 @@ PRIMITIVE : ID '=' EXPR NEWLINE PRIMITIVE {
 										sscanf($3, "|%d,%d|", &x, &y);
 										printf("default_cursor=(%d, %d)\n", x, y); 
 									}
+									else if(strcmp($1->literalName, "custom_range") == 0){
+										int l, r;
+										sscanf($3, "|%d,%d|", &l, &r);
+										printf("custom_range=range(%d, %d)\n", l, r); 
+									}
 									else{
 									printf("%s=%s\n", $1->literalName, $3);
 									}

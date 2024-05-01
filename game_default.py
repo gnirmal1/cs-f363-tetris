@@ -14,4 +14,6 @@ end_game_message = "You Have beaten the game!"
 levels_dict = {}
 difficulty = "easy"
 pause_key = "p"
+custom_range = range(1, 2)
+quit_key = "q"
 max_level = -1

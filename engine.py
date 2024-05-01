@@ -19,6 +19,8 @@ class TetrisEngine:
 			self.extetromino_distribution = range(1, 17)
 		elif self.difficulty == "hard":
 			self.extetromino_distribution = range(1, 74)
+		elif self.difficulty == "custom":
+			self.extetromino_distribution = game.custom_range
 		else:
 			print("Invalid difficulty level. Exiting...")
 			exit()
@@ -49,7 +51,9 @@ class TetrisEngine:
 		self.window.bind("<space>", self.drop_piece)  # callback
 		self.window.bind(f"<{game.down_key}>", self.move_down_force)  # callback
 		self.window.bind(f'<{game.pause_key}>', self.toggle_pause_status) # callback
-
+		self.window.bind(
+			f"<{game.quit_key}>", self.quit_game
+		)  # Bind the 'q' key to the quit_game method
 		self.update_duration = 100  # More or less fixed
 		self.window.after(self.update_duration, lambda: self.update_step())  # callback
 		self.initial_move_down_duration = (
@@ -103,7 +107,9 @@ class TetrisEngine:
 			for column in range(piece.matrix.shape[1]):
 				if piece.matrix[row][column]:
 					# Set a lighter color or a different pattern for the ghost piece
-					area.area[row + ghost_cursor[0]][column + ghost_cursor[1]] = "ghost"
+					area.ghost_area[row + ghost_cursor[0]][
+						column + ghost_cursor[1]
+					] = True
 
 		# Render the actual falling piece
 		for row in range(piece.matrix.shape[0]):
@@ -331,6 +337,9 @@ class TetrisEngine:
 			self.text_area.insert(tk.END, "\nGame Resumed.")
 			self.update_step()  # Resume game updates
 
+	def quit_game(self, event=None):
+		"""Handle the quit game operation."""
+		self.window.destroy()  # This will close the Tkinter window and quit the game
 
 	def end_game(self):
 		# Display the end game message
