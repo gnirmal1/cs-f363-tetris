@@ -19,6 +19,7 @@ Run **make test_no_bython** if the input code does not contain any functions/loo
 - **Quit Key**: Set a key to quit the game gracefully.
 - **End Game Message**: Customize the message displayed when the player reaches the maximum level and beats the game.
 - **Rotate Limit**: TODO
+- **Next Piece Display**: TODO
 
 ## Extetromino Distribution
 
