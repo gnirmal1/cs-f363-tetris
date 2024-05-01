@@ -30,6 +30,9 @@ class TetrisEngine:
 			font=("Courier New", "16", "bold")
 		else:
 			bg, fg, font = self.load_theme(game.theme)
+		
+		self.rotate_counter_limit = game.rotate_counter_limit
+		self.rotate_counter = 0
 		self.window = tk.Tk()  # fixed
 		self.window.title(game.title)  # Programmable, inconsequential
 		self.width = game.width  # Essential and programmable
@@ -45,6 +48,8 @@ class TetrisEngine:
 		)
 		self.text_area.pack(expand=tk.YES, fill=tk.BOTH)  # fixed
 		self.board = Board(width=self.width, height=self.height)  # fixed
+		self.rotate_limit_label = tk.Label(self.window, text="", fg="red")
+		self.rotate_limit_label.pack()
 		self.pauseStatus = False  # fixed in the beginning, state variable
 		self.window.bind(
 			f"<{game.up_key}>", self.rotate_CW
@@ -129,11 +134,17 @@ class TetrisEngine:
 	def rotate_CW(self, event):
 		if self.pauseStatus:
 			return
+		if self.rotate_counter_limit != -1 and self.rotate_counter > self.rotate_counter_limit:
+			self.rotate_limit_label.config(text="Rotate limit reached!", fg="red")
+			return False
+
+		print(f"Rotations: {self.rotate_counter}, Limit: {self.rotate_counter_limit}")
 		newpiece = Shape(self.piece.matrix)
 		newpiece.rotateCW()
 		if self.board.collision(newpiece.matrix, self.cursor):
 			return False
 		else:
+			self.rotate_counter += 1
 			self.piece = newpiece
 			return True
 
@@ -276,6 +287,8 @@ class TetrisEngine:
 			self.piece = Shape(get_any_extetromino(self.extetromino_distribution, game.freq_dist))
 		else:
 			self.piece = piece
+		self.rotate_counter = 0
+		self.rotate_limit_label.config(text="")
 		self.cursor = self.default_cursor
 
 	def new_game(self):

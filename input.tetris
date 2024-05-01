@@ -1,9 +1,6 @@
 Section1
 title = "Python Text Tetris"
 height = 10
-theme = "custom"
-bg = "black"
-fg = "blue"
 width = 20
 default_cursor = |0,10|
 left_key = "Left"

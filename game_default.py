@@ -1,5 +1,5 @@
 title = "Python Text Tetris"
-theme = 'hecker'
+theme = 'light'
 height = 10
 width = 20
 default_cursor = (0, 10)
@@ -20,3 +20,4 @@ pause_key = "p"
 custom_range = range(1, 2)
 quit_key = "q"
 max_level = 3
+rotate_counter_limit = 3
