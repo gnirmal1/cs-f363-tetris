@@ -36,6 +36,7 @@ freq_dist="uniform"
 down_offset=1  
 right_offset=1  
 left_offset=1  
+display_next=1  
 up_key="Up"  
 down_key="Down"  
 right_key="Right"  

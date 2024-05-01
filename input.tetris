@@ -7,6 +7,7 @@ left_key = "Left"
 right_key = "Right"
 down_key = "Down"
 up_key = "Up"
+display_next = 1
 left_offset = 1
 right_offset = 1
 down_offset = 1

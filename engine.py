@@ -138,7 +138,6 @@ class TetrisEngine:
 			self.rotate_limit_label.config(text="Rotate limit reached!", fg="red")
 			return False
 
-		print(f"Rotations: {self.rotate_counter}, Limit: {self.rotate_counter_limit}")
 		newpiece = Shape(self.piece.matrix)
 		newpiece.rotateCW()
 		if self.board.collision(newpiece.matrix, self.cursor):
