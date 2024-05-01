@@ -43,7 +43,7 @@ The `custom_range` parameter allows you to choose the range of extetromino shape
 The `freq_dist` parameter lets you choose from uniform, gaussian, and exponential distributions for the occurrences of the selected extetromino shapes specified through the difficulty or custom range.
 
 ### Rotate Limit
-The `rotate_counter_limit` parameter sets a limit on the number of rotations that can be performed on a single piece.
+The `rotate_counter_limit` parameter sets a limit on the number of rotations that can be performed on a single piece. Set to -1 to allow infinite rotations.
 
 ### End Game Message
 Customize the message displayed when the player reaches the maximum level and beats the game by modifying the `end_game_message` parameter.
@@ -52,12 +52,10 @@ Customize the message displayed when the player reaches the maximum level and be
 Set the maximum level in the game using the `max_level` parameter.
 
 ## Salient Display Features
-- **Shadow**: The game displays a shadow for the falling pieces to show where they would end up on the current trajectory.
-- **Next Piece**: Below the game board, the current level, the lines cleared (score), and the next piece to follow are displayed.
-
-## Extetromino Distribution
-One of the unique features of **EXtendedTETRIckS** is the ability to include extetromino shapes, which are geometric shapes composed of multiple conjoined tetromino blocks. The game allows you to specify the range of extetromino shapes to be included, providing an additional layer of complexity and challenge.
-
+###Shadow
+  The game displays a shadow for the falling pieces to show where they would end up on the current trajectory.
+###Next Piece
+  Below the game board, the current level, the lines cleared (score), and the next piece to follow are displayed.
 
 ## Input Format
 The game configuration is defined in an input file named `input.tetris`. The file should follow a specific format to ensure proper parsing and game customization. The input file is divided into three sections: Section1, Section2, and Section3. Section1 contains the primary game configuration parameters, while Section2 is used for function definitions, and Section3 is reserved for future extensions.
@@ -78,7 +76,7 @@ bg = "black" # if theme is set to custom colour specified for bg is used as back
 fg = "blue" # if theme is set to custom colour specified for fg is used as foreground colour
 width = 10 # Sets the width of the game board
 freq_dist = "uniform" # Sets the frequencies for the tetrominoe shapes selected based on difficulty/custom range
-rotate_counter_limit = 5 # Sets the maximum rotations for each piece 
+rotate_counter_limit = 5 # Sets the maximum rotations for each piece. Set to -1 to allow infinite rotations. 
 default_cursor = (2, 5) # Sets the initial position of the falling piece (row, column)
 left_key = "a" # Sets the key for moving the piece left
 right_key = "d" # Sets the key for moving the piece right
