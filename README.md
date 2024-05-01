@@ -31,6 +31,7 @@ The game configuration is defined in an input file named `input.tetris`. The fil
 Section1
 title = "My Custom Tetris" # Sets the title of the game window
 height = 15 # Sets the height of the game board
+theme = 'hecker' # sets the theme(background colour, foreground colour, font) Choose from the list of theme's provided in themes.py
 width = 10 # Sets the width of the game board
 default_cursor = (2, 5) # Sets the initial position of the falling piece (row, column)
 left_key = "a" # Sets the key for moving the piece left
