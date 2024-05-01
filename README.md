@@ -1,38 +1,72 @@
-# EXtendedTETRIckS - A Customizable Tetris Game
+# EXtendedTETRIckS - A Highly Customizable Tetris Game
 
-**EXtendedTETRIckS** is a highly customizable Tetris game implemented in Python. It allows users to tailor the game experience according to their preferences by modifying various game parameters through an input configuration file. This README provides an overview of the customization features and details the input format for the configuration file.
+**EXtendedTETRIckS** is a Tetris game implemented in Python that offers a wide range of customization options, allowing users to tailor the game experience to their preferences. This README provides a detailed overview of the customizable features and explains the input format for the configuration file.
 
 ## Running the Code
-Run **make test_no_bython** if the input code does not contain any functions/loops/if statements. Otherwise run **make tests**. If the input defines uses loops/if statements or defines custom functions the compilation process requires the presence of [bython](https://github.com/mathialo/bython) library.
+To run the code, use the provided Makefile:
 
+- Run `make test_no_bython` if the input code does not contain any functions, loops, or if statements.
+- Run `make tests` if the input defines uses loops, if statements, or custom functions. Note that this requires the presence of the [bython](https://github.com/mathialo/bython) library.
 
 ## Customization Features
 
-- **Game Title**: Customize the title displayed in the game window.
-- **Theme**: Choose from a variety of predefined themes or create your own by specifying the background color, foreground color, and font. You can also choose set a custom theme and specify the background and foreground colours.
-- **Board Size**: Adjust the height and width of the game board to suit your preferences.
-- **Starting Cursor Position**: Set the initial position where the falling pieces will appear.
-- **Key Bindings**: Remap the keys used for moving the falling pieces left, right, down, rotating clockwise, pausing/resuming the game, and quitting the game.
-- **Movement Offsets**: Customize the number of cells the falling piece moves in each direction.
-- **Difficulty Levels**: Define multiple difficulty levels by specifying the score required to advance to the next level, the speed increase percentage, and the extetromino distribution range.
-- **Custom Extetromino Range**: Choose the range of extetromino shapes to be included in the game, allowing for different levels of complexity.
-- **Pause Key**: Assign a key to pause and resume the game.
-- **Quit Key**: Set a key to quit the game gracefully.
-- **End Game Message**: Customize the message displayed when the player reaches the maximum level and beats the game.
-- **Rotate Limit**: Set a limit on the rotations that can be performed on a single piece.
-- **Frequency Distribution**: Choose from uniform, gaussian and exponential distributions for occurences of the selected shapes specified through difficulty or custom range.
+### Game Title
+You can customize the title displayed in the game window by modifying the `title` parameter in the input file.
 
-## Salient Display Features(Fixed)
-- **Shadow**: Wed display a shadow for the falling pieces to show where they woud end up on the current trajectory.
-- **Next Piece**: Below the Game Board we display the current level, the lines cleared(score) and the next piece to follow. 
+### Theme
+**EXtendedTETRIckS** offers a variety of predefined themes to choose from, each with its own unique combination of background color, foreground color, and font. Alternatively, you can create your own custom theme by specifying the `bg` (background color) and `fg` (foreground color) parameters. The `theme` parameter allows you to select a predefined theme or set it to "custom" to use your specified colors.
+
+### Board Size
+Adjust the dimensions of the game board by modifying the `height` and `width` parameters, allowing you to create a board size that suits your preferences.
+
+### Starting Cursor Position
+The `default_cursor` parameter lets you set the initial position (row and column) where the falling pieces will appear on the game board.
+
+### Key Bindings
+Customize the key bindings for various game actions, such as moving the falling piece left (`left_key`), right (`right_key`), down (`down_key`), rotating clockwise (`up_key`), pausing/resuming the game (`pause_key`), and quitting the game (`quit_key`).
+
+### Movement Offsets
+Control the number of cells the falling piece moves in each direction by setting the `left_offset`, `right_offset`, and `down_offset` parameters.
+
+### Difficulty Levels
+Define multiple difficulty levels by specifying the following parameters for each level:
+- `score_to_advance`: The score required to advance to the next level.
+- `level_number`: The level number.
+- `speed_increase_percentage`: The percentage by which the falling speed increases at this level.
+
+For example, `level1 = (10, 1, 5)` sets the parameters for level 1, where the player needs to score 10 points to advance to the next level, and the falling speed increases by 5% at this level.
+
+### Custom Extetromino Range
+The `custom_range` parameter allows you to choose the range of extetromino shapes (start and end values) to be included in the game, providing different levels of complexity. Extetrominos are geometric shapes composed of multiple conjoined tetromino blocks.
+
+### Frequency Distribution
+The `freq_dist` parameter lets you choose from uniform, gaussian, and exponential distributions for the occurrences of the selected extetromino shapes specified through the difficulty or custom range.
+
+### Rotate Limit
+The `rotate_counter_limit` parameter sets a limit on the number of rotations that can be performed on a single piece.
+
+### End Game Message
+Customize the message displayed when the player reaches the maximum level and beats the game by modifying the `end_game_message` parameter.
+
+### Maximum Level
+Set the maximum level in the game using the `max_level` parameter.
+
+## Salient Display Features
+- **Shadow**: The game displays a shadow for the falling pieces to show where they would end up on the current trajectory.
+- **Next Piece**: Below the game board, the current level, the lines cleared (score), and the next piece to follow are displayed.
 
 ## Extetromino Distribution
-
 One of the unique features of **EXtendedTETRIckS** is the ability to include extetromino shapes, which are geometric shapes composed of multiple conjoined tetromino blocks. The game allows you to specify the range of extetromino shapes to be included, providing an additional layer of complexity and challenge.
 
-## Input Format
 
-The game configuration is defined in an input file named `input.tetris`. The file should follow a specific format to ensure proper parsing and game customization. Here's an example of the input format:
+## Input Format
+The game configuration is defined in an input file named `input.tetris`. The file should follow a specific format to ensure proper parsing and game customization. The input file is divided into three sections: Section1, Section2, and Section3. Section1 contains the primary game configuration parameters, while Section2 is used for function definitions, and Section3 is reserved for future extensions.
+
+Each parameter is specified on a new line, followed by an equal sign (=) and the desired value. For string values, make sure to use double quotes (""). After the sections, ensure the presence of a newline.
+
+The input format allows you to customize various aspects of the game, including the game title, theme, board size, cursor position, key bindings, movement offsets, difficulty levels, extetromino range, frequency distribution, rotate limit, end game message, and more.
+
+Here's an example of the input format:
 
 ```plaintext
 Section1
@@ -68,8 +102,6 @@ Section2 # This section is for functions
 Section3 # This section is for future extensions
 
 ```
-For strings kindly ensure you use "".
-After the sections ensure the presence of a newline. Each parameter is specified on a new line, followed by an equal sign (=) and the desired value. The input file is divided into three sections: Section1, Section2, and Section3. Section1 contains the primary game configuration parameters, while Section 2 is used for function definitions and Section 3 is reserved for future extensions. Function definitions require the use of bython in the compilation process, so install it before running make tests.
 
 _Declaration_
 
