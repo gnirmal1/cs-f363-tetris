@@ -28,13 +28,16 @@ Customize the key bindings for various game actions, such as moving the falling 
 ### Movement Offsets
 Control the number of cells the falling piece moves in each direction by setting the `left_offset`, `right_offset`, and `down_offset` parameters.
 
-### Difficulty Levels
-Define multiple difficulty levels by specifying the following parameters for each level:
+### Levels and Speedup
+Define the score to advance through levels and the speedup by specifying the following parameters for each level:
 - `score_to_advance`: The score required to advance to the next level.
 - `level_number`: The level number.
 - `speed_increase_percentage`: The percentage by which the falling speed increases at this level.
 
 For example, `level1 = (10, 1, 5)` sets the parameters for level 1, where the player needs to score 10 points to advance to the next level, and the falling speed increases by 5% at this level.
+
+### Difficulty
+Allows you to choose between `easy ` `medium` and `hard`. With increasing difficulty the tetrominoe shapes increase increasing the difficulty. You can also set it to `custom` and specify the range of shapes you want to use through `custom_range`.
 
 ### Custom Extetromino Range
 The `custom_range` parameter allows you to choose the range of extetromino shapes (start and end values) to be included in the game, providing different levels of complexity. Extetrominos are geometric shapes composed of multiple conjoined tetromino blocks.
