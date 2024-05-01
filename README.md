@@ -2,6 +2,9 @@
 
 **EXtendedTETRIckS** is a highly customizable Tetris game implemented in Python. It allows users to tailor the game experience according to their preferences by modifying various game parameters through an input configuration file. This README provides an overview of the customization features and details the input format for the configuration file.
 
+## Running the Code
+Run make test_no_bython if the input code does not contain any functions/loops/if statements. Otherwise run make test_bython. If the input defines uses loops/if statements or defines custom functions the compilation process requires the presence of bython library.
+
 ## Customization Features
 
 - **Game Title**: Customize the title displayed in the game window.
