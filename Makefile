@@ -17,3 +17,4 @@ test_no_bython:
 	./x2021A7PSXXXXG < input.tetris > game_temp.py
 	cat game_temp.py >> game.py
 	python3 engine.py
+	
