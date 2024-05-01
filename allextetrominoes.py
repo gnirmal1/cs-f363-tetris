@@ -261,9 +261,12 @@ def get_extetromino_at(index):  # gives a sequential extetromino.
 
 
 import numpy as np
-from scipy.stats import norm, uniform, expon
+from scipy.stats import expon, norm, uniform
 
-def get_any_extetromino(distribution=range(1, 74), freq_distri='uniform', freq_params=None):
+
+def get_any_extetromino(
+    distribution=range(1, 74), freq_distri="uniform", freq_params=None
+):
     """
     Returns a randomly selected extetromino from the given distribution,
     with the frequency determined by the specified frequency distribution.
@@ -285,32 +288,36 @@ def get_any_extetromino(distribution=range(1, 74), freq_distri='uniform', freq_p
     num_extetrominoes = len(distribution)
 
     # Generate frequency weights based on the specified frequency distribution
-    if freq_distri == 'uniform':
+    if freq_distri == "uniform":
         if freq_params is None:
             freq_weights = np.ones(num_extetrominoes) / num_extetrominoes
         else:
             a, b = freq_params
             freq_weights = uniform.pdf(range(a, b), loc=a, scale=b - a)
             freq_weights /= freq_weights.sum()
-    elif freq_distri == 'gaussian':
+    elif freq_distri == "gaussian":
         if freq_params is None:
             freq_params = (num_extetrominoes // 2, num_extetrominoes // 4)
         mean, std = freq_params
         freq_weights = norm.pdf(range(num_extetrominoes), loc=mean, scale=std)
         freq_weights /= freq_weights.sum()
-    elif freq_distri == 'exponential':
+    elif freq_distri == "exponential":
         if freq_params is None:
             freq_params = (1.0 / num_extetrominoes,)
         lam = freq_params[0]
         freq_weights = expon.pdf(range(num_extetrominoes), scale=1 / lam)
         freq_weights /= freq_weights.sum()
-    elif freq_distri == 'custom':
+    elif freq_distri == "custom":
         if freq_params is None:
-            raise ValueError("Custom frequencies must be provided for the 'custom' frequency distribution.")
+            raise ValueError(
+                "Custom frequencies must be provided for the 'custom' frequency distribution."
+            )
         freq_weights = np.array(freq_params)
         freq_weights /= freq_weights.sum()
     else:
-        raise ValueError(f"Invalid frequency distribution '{freq_distri}'. Accepted values are 'uniform', 'gaussian', 'exponential', and 'custom'.")
+        raise ValueError(
+            f"Invalid frequency distribution '{freq_distri}'. Accepted values are 'uniform', 'gaussian', 'exponential', and 'custom'."
+        )
 
     # Select an extetromino index based on the distribution and frequency weights
     idx = np.random.choice(distribution, p=freq_weights)
