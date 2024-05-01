@@ -5,10 +5,11 @@
 ## Running the Code
 Run **make test_no_bython** if the input code does not contain any functions/loops/if statements. Otherwise run **make tests**. If the input defines uses loops/if statements or defines custom functions the compilation process requires the presence of [bython](https://github.com/mathialo/bython) library.
 
+
 ## Customization Features
 
 - **Game Title**: Customize the title displayed in the game window.
-- **Theme**: Choose from a variety of predefined themes or create your own by specifying the background color, foreground color, and font.
+- **Theme**: Choose from a variety of predefined themes or create your own by specifying the background color, foreground color, and font. You can also choose set a custom theme and specify the background and foreground colours.
 - **Board Size**: Adjust the height and width of the game board to suit your preferences.
 - **Starting Cursor Position**: Set the initial position where the falling pieces will appear.
 - **Key Bindings**: Remap the keys used for moving the falling pieces left, right, down, rotating clockwise, pausing/resuming the game, and quitting the game.
@@ -18,8 +19,12 @@ Run **make test_no_bython** if the input code does not contain any functions/loo
 - **Pause Key**: Assign a key to pause and resume the game.
 - **Quit Key**: Set a key to quit the game gracefully.
 - **End Game Message**: Customize the message displayed when the player reaches the maximum level and beats the game.
-- **Rotate Limit**: TODO
-- **Next Piece Display**: TODO
+- **Rotate Limit**: Set a limit on the rotations that can be performed on a single piece.
+- **Frequency Distribution**: Choose from uniform, gaussian and exponential distributions for occurences of the selected shapes specified through difficulty or custom range.
+
+## Salient Display Features(Fixed)
+- **Shadow**: Wed display a shadow for the falling pieces to show where they woud end up on the current trajectory.
+- **Next Piece**: Below the Game Board we display the current level, the lines cleared(score) and the next piece to follow. 
 
 ## Extetromino Distribution
 
@@ -34,7 +39,11 @@ Section1
 title = "My Custom Tetris" # Sets the title of the game window
 height = 15 # Sets the height of the game board
 theme = "hecker" # sets the theme(background colour, foreground colour, font) Choose from the list of theme's provided in themes.py
+bg = "black" # if theme is set to custom colour specified for bg is used as background colour
+fg = "blue" # if theme is set to custom colour specified for fg is used as foreground colour
 width = 10 # Sets the width of the game board
+freq_dist = "uniform" # Sets the frequencies for the tetrominoe shapes selected based on difficulty/custom range
+rotate_counter_limit = 5 # Sets the maximum rotations for each piece 
 default_cursor = (2, 5) # Sets the initial position of the falling piece (row, column)
 left_key = "a" # Sets the key for moving the piece left
 right_key = "d" # Sets the key for moving the piece right
@@ -43,13 +52,13 @@ up_key = "w" # Sets the key for rotating the piece clockwise
 left_offset = 2 # Sets the number of cells the piece moves to the left
 right_offset = 2 # Sets the number of cells the piece moves to the right
 down_offset = 2 # Sets the number of cells the piece moves down
-custom_range = (1, 10) # Sets the range of extetromino shapes to include (start, end)
+custom_range = (1, 10) # Sets the range of extetromino shapes to include (start, end). Only used if diffoculty is set to custom
 quit_key = "q" # Sets the key for quitting the game
 end_game_message = "Congratulations! You've mastered the game!" # Sets the message displayed when the game is beaten
 level1 = (10, 1, 5) # Sets the parameters for level 1 (score_to_advance, level_number, speed_increase_percentage)
 level2 = (20, 2, 10) # Sets the parameters for level 2
 level3 = (30, 3, 15) # Sets the parameters for level 3
-difficulty = "medium" # Sets the difficulty level (easy, medium, hard, or custom)
+difficulty = "medium" # Sets the difficulty level (easy, medium, hard, or custom). With increasing difficulty more shapes occur. In Custom difficulty custom range is used to select tetrominoe shapes.
 pause_key = "p" # Sets the key for pausing/resuming the game
 max_level = 3 # Sets the maximum level in the game
 Section2 # This section is for functions
@@ -57,7 +66,8 @@ Section2 # This section is for functions
 Section3 # This section is for future extensions
 
 ```
-After the sections ensure the presence of a newline. Each parameter is specified on a new line, followed by an equal sign (=) and the desired value. The input file is divided into three sections: Section1, Section2, and Section3. Section1 contains the primary game configuration parameters, while Section 2 is used for function definitions and Section 3 is reserved for future extensions. Function definitions require the use of bython in the compilation process, so install it before running make tests. 
+For strings kindly ensure you use "".
+After the sections ensure the presence of a newline. Each parameter is specified on a new line, followed by an equal sign (=) and the desired value. The input file is divided into three sections: Section1, Section2, and Section3. Section1 contains the primary game configuration parameters, while Section 2 is used for function definitions and Section 3 is reserved for future extensions. Function definitions require the use of bython in the compilation process, so install it before running make tests.
 
 _Declaration_
 
