@@ -46,3 +46,9 @@ level3 = (30, 3, 15) # Sets the parameters for level 3
 difficulty = "medium" # Sets the difficulty level (easy, medium, hard, or custom)
 pause_key = "p" # Sets the key for pausing/resuming the game
 max_level = 3 # Sets the maximum level in the game
+Section2 # This section is for functions
+
+Section3 # This section is for future extensions
+
+```
+After the sections ensure the presence of a newline. Each parameter is specified on a new line, followed by an equal sign (=) and the desired value. The input file is divided into three sections: Section1, Section2, and Section3. Section1 contains the primary game configuration parameters, while Section 2 is used for function definitions and Section 3 is reserved for future extensions. Function definitions require the use of bython in the compilation process, so install it before running make test_bython. 
